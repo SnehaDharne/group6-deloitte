@@ -67,7 +67,7 @@ namespace Deloitte_Project.Controllers
 
         // PUT api/<UserController>/5
         [HttpPut("{Id}")]
-        public async Task<IActionResult> PutUser(int Id, User user)
+        public async Task<IActionResult> PutUser(string Id, User user)
         {
             var dbUser = await _context.Users.FindAsync(Id);
             if (dbUser == null)
@@ -86,7 +86,7 @@ namespace Deloitte_Project.Controllers
 
         // DELETE api/<UserController>/5
         [HttpDelete("{Id}")]
-        public async Task<IActionResult> DeleteUser(int Id)
+        public async Task<IActionResult> DeleteUser(string Id)
         {
             var user = await _context.Users.FindAsync(Id);
             if (user == null)
