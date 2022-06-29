@@ -3,47 +3,22 @@ using Deloitte_Project.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Deloitte_Project.Migrations
 {
     [DbContext(typeof(CoreDbContext))]
-    partial class CoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220629073303_createMetadata1")]
+    partial class createMetadata1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Deloitte_Project.Models.metadata", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("created_by")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("created_on")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("file_name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("file_size")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("sub_directory")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Metadata");
-                });
 
             modelBuilder.Entity("Deloitte_Project.Models.user", b =>
                 {
