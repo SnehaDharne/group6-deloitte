@@ -21,7 +21,7 @@ namespace Deloitte_Project.Controllers
             _context = context;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<user>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             // return await _context.Contacts.ToListAsync();
             // Hide entries with IsDeleted = true
@@ -34,10 +34,8 @@ namespace Deloitte_Project.Controllers
        // }
 
         // GET api/<UserController>/5
-
-
         [HttpGet("{Id}/{password}")]
-        public async Task<ActionResult<user>> GetDetails(string Id, string password)
+        public async Task<ActionResult<User>> GetDetails(string Id, string password)
         {
             var user = await _context.Users.FindAsync(Id);
             //fix - make password null condition
@@ -59,20 +57,51 @@ namespace Deloitte_Project.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult<User>> PostUser(User user)
         {
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            return Ok(_context.Users);
         }
 
         // PUT api/<UserController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{Id}")]
+        public async Task<IActionResult> PutUser(int Id, User user)
         {
+            var dbUser = await _context.Users.FindAsync(Id);
+            if (dbUser == null)
+            {
+                return NotFound();
+            }
+            dbUser.firstName = user.firstName;
+            dbUser.lastName = user.lastName;
+            dbUser.age = user.age;
+            dbUser.isDeleted = false;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(dbUser);
         }
 
         // DELETE api/<UserController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> DeleteUser(int Id)
         {
+            var user = await _context.Users.FindAsync(Id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            // Actually deletes entry
+            //_context.Users.Remove(user);
+            // Soft delete below
+            user.isDeleted = true;
+            await _context.SaveChangesAsync();
+
+            //return NoContent();
+            return Ok(_context.Users);
         }
     }
 }

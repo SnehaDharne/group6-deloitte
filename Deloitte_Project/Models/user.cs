@@ -1,6 +1,6 @@
 ﻿namespace Deloitte_Project.Models
 {
-    public class user
+    public class User
     {
         public string Id { get; set; }
         public string firstName { get; set; }

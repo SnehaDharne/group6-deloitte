@@ -14,7 +14,7 @@ namespace Deloitte_Project.Models
         public CoreDbContext(DbContextOptions<CoreDbContext> options) : base(options)
         {
         }
-        public DbSet<user> Users { get; set; }
+        public DbSet<User> Users { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
