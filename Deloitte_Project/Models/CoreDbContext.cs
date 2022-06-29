@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Deloitte_Project.Models;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Deloitte_Project.Models
@@ -9,12 +10,11 @@ namespace Deloitte_Project.Models
         public CoreDbContext()
         {
         }
-
-        public CoreDbContext(DbContextOptions<CoreDbContext> options)
-            : base(options)
+        
+        public CoreDbContext(DbContextOptions<CoreDbContext> options) : base(options)
         {
         }
-
+        public DbSet<user> Users { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
