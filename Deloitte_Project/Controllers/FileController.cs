@@ -28,8 +28,10 @@ namespace Deloitte_Project.Controllers
 
         #region Upload
         [HttpPost(nameof(Upload))]
-        public IActionResult Upload([Required] List<IFormFile> formFiles, [Required] string subDirectory)
+        public IActionResult Upload([Required] List<IFormFile> formFiles)
         {
+            string subDirectory;
+            subDirectory = Directory.GetParent(Environment.CurrentDirectory).FullName + "\\OUTPUT";
             try
             {
                 _fileService.UploadFile(formFiles, subDirectory);
@@ -45,9 +47,10 @@ namespace Deloitte_Project.Controllers
 
         #region Download File
         [HttpGet(nameof(Download))]
-        public IActionResult Download([Required] string subDirectory)
+        public IActionResult Download()
         {
-
+            string subDirectory;
+            subDirectory = Directory.GetParent(Environment.CurrentDirectory).FullName + "\\OUTPUT";
             try
             {
                 var (fileType, archiveData, archiveName) = _fileService.DownloadFiles(subDirectory);
