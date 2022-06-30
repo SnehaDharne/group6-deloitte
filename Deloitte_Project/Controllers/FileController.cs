@@ -47,21 +47,18 @@ namespace Deloitte_Project.Controllers
 
         #region Download File
         [HttpGet(nameof(Download))]
-        public IActionResult Download()
+        public IActionResult Download([Required] string fileName)
         {
             string subDirectory;
             subDirectory = Directory.GetParent(Environment.CurrentDirectory).FullName + "\\OUTPUT";
-            try
+            var path = Path.Combine(subDirectory, fileName);
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open))
             {
-                var (fileType, archiveData, archiveName) = _fileService.DownloadFiles(subDirectory);
-
-                return File(archiveData, fileType, archiveName);
+                stream.CopyTo(memory);
             }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
+            memory.Position = 0;
+            return File(memory, "application/pbix", Path.GetFileName(path));
         }
         #endregion
     }
