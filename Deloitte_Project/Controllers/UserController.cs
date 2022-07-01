@@ -10,6 +10,7 @@ using System.Text;
 using System.Security.Cryptography;
 using System.IO;
 using Microsoft.AspNetCore.Cors;
+using System.Net.Mail;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Deloitte_Project.Controllers
@@ -67,6 +68,20 @@ namespace Deloitte_Project.Controllers
             return cipherText;
         }
 
+        public bool IsValidEmail(string emailaddress)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(emailaddress);
+
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
+
         private readonly CoreDbContext _context;
         // GET: api/<UserController>
         public UserController(CoreDbContext context)
@@ -110,16 +125,23 @@ namespace Deloitte_Project.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-        
+
         [EnableCors("Policy1")]
         public async Task<ActionResult<User>> PostUser(User user)
         {
-            user.password = Encrypt(user.password);
+            if (IsValidEmail(user.Id))
+            {
+                user.password = Encrypt(user.password);
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
 
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return Ok(_context.Users);
+                return Ok(_context.Users);
+            }
+            else
+            {
+                Console.WriteLine("Invalid Email Format");
+                return BadRequest();
+            }
         }
 
         // PUT api/<UserController>/5
@@ -145,21 +167,29 @@ namespace Deloitte_Project.Controllers
         [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteUser(string Id)
         {
-            var user = await _context.Users.FindAsync(Id);
-            if (user == null)
+            if (IsValidEmail(Id))
             {
-                return NotFound();
+                var user = await _context.Users.FindAsync(Id);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                // Actually deletes entry
+                //_context.Users.Remove(user);
+
+                // Soft delete below
+                user.isDeleted = true;
+                await _context.SaveChangesAsync();
+
+                //return NoContent();
+                return Ok(_context.Users);
             }
-
-            // Actually deletes entry
-            //_context.Users.Remove(user);
-
-            // Soft delete below
-            user.isDeleted = true;
-            await _context.SaveChangesAsync();
-
-            //return NoContent();
-            return Ok(_context.Users);
+            else
+            {
+                Console.WriteLine("Invalid Email Format");
+                return BadRequest();
+            }
         }
     }
 }
