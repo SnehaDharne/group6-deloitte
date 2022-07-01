@@ -11,7 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Graph;
 
 namespace Deloitte_Project
 {
@@ -53,6 +52,7 @@ namespace Deloitte_Project
 
             app.UseRouting();
 
+            app.UseCors();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -61,7 +61,6 @@ namespace Deloitte_Project
             });
             // Change startup page
             app.UseHttpsRedirection();
-            app.UseCors();
             var options = new DefaultFilesOptions();
             options.DefaultFileNames.Clear();
             options.DefaultFileNames.Add("login.html");
