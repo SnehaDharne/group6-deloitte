@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Deloitte_Project.Models;
+using System.Text;
+using System.Security.Cryptography;
+using System.IO;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Deloitte_Project.Controllers
@@ -14,6 +17,55 @@ namespace Deloitte_Project.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        public string Encrypt(string encryptString)
+        {
+            string EncryptionKey = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            byte[] clearBytes = Encoding.Unicode.GetBytes(encryptString);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
+            0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
+        });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
+                    }
+                    encryptString = Convert.ToBase64String(ms.ToArray());
+                }
+            }
+            return encryptString;
+        }
+
+        public string Decrypt(string cipherText)
+        {
+            string EncryptionKey = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            cipherText = cipherText.Replace(" ", "+");
+            byte[] cipherBytes = Convert.FromBase64String(cipherText);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
+            0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
+        });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(cipherBytes, 0, cipherBytes.Length);
+                        cs.Close();
+                    }
+                    cipherText = Encoding.Unicode.GetString(ms.ToArray());
+                }
+            }
+            return cipherText;
+        }
+
         private readonly CoreDbContext _context;
         // GET: api/<UserController>
         public UserController(CoreDbContext context)
@@ -28,10 +80,10 @@ namespace Deloitte_Project.Controllers
             return await _context.Users.Where(c => c.isDeleted == false).ToListAsync();
         }
 
-       // public IEnumerable<string> Get()
-       // {
-       //     return new string[] { "value1", "value2" };
-       // }
+        // public IEnumerable<string> Get()
+        // {
+        //     return new string[] { "value1", "value2" };
+        // }
 
         // GET api/<UserController>/5
         [HttpGet("{Id}/{password}")]
@@ -45,12 +97,12 @@ namespace Deloitte_Project.Controllers
             }
             else
             {
-                if(user.password == password)
+                if (Decrypt(user.password) == password)
                 {
                     return user;
 
                 }
-                else 
+                else
                     return BadRequest();
             }
         }
@@ -59,6 +111,8 @@ namespace Deloitte_Project.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
+            user.password = Encrypt(user.password);
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
@@ -96,6 +150,7 @@ namespace Deloitte_Project.Controllers
 
             // Actually deletes entry
             //_context.Users.Remove(user);
+
             // Soft delete below
             user.isDeleted = true;
             await _context.SaveChangesAsync();
