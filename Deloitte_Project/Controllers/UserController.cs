@@ -9,6 +9,7 @@ using Deloitte_Project.Models;
 using System.Text;
 using System.Security.Cryptography;
 using System.IO;
+using Microsoft.AspNetCore.Cors;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Deloitte_Project.Controllers
@@ -109,6 +110,8 @@ namespace Deloitte_Project.Controllers
 
         // POST api/<UserController>
         [HttpPost]
+        
+        [EnableCors("Policy1")]
         public async Task<ActionResult<User>> PostUser(User user)
         {
             user.password = Encrypt(user.password);

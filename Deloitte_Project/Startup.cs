@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Graph;
 
 namespace Deloitte_Project
 {
@@ -26,6 +27,17 @@ namespace Deloitte_Project
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+           services.AddCors(options =>
+            {
+                options.AddPolicy("Policy1",
+                    policy =>
+                    {
+                        policy.WithOrigins("http://localhost:5000",
+                                            "http://localhost:47541");
+                    });
+
+               
+            });
             services.AddDbContext<CoreDbContext>(op => op.UseSqlServer(Configuration.GetConnectionString("Database")));
             services.AddControllers();
 
@@ -49,7 +61,7 @@ namespace Deloitte_Project
             });
             // Change startup page
             app.UseHttpsRedirection();
-
+            app.UseCors();
             var options = new DefaultFilesOptions();
             options.DefaultFileNames.Clear();
             options.DefaultFileNames.Add("login.html");
@@ -59,6 +71,7 @@ namespace Deloitte_Project
 
 
             app.UseRouting();
+           
         }
     }
 }
