@@ -47,6 +47,18 @@ namespace Deloitte_Project
             {
                 endpoints.MapControllers();
             });
+            // Change startup page
+            app.UseHttpsRedirection();
+
+            var options = new DefaultFilesOptions();
+            options.DefaultFileNames.Clear();
+            options.DefaultFileNames.Add("login.html");
+            app.UseDefaultFiles(options);
+
+            app.UseStaticFiles();
+
+
+            app.UseRouting();
         }
     }
 }

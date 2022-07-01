@@ -33,72 +33,65 @@
                     <div class="navbar-brand" >Deloitte</div>
                    </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="Home.html">Home </a>
+                        <a class="nav-link" href="#" style="color:white"><span class="sr-only">Home</span> </a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="#" style="color:white">Upload<span class="sr-only"></span></a>
+                        <a class="nav-link" href="upload.html" >Upload</a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="user_management.html">User Management</a>
-                    </li>
+                      <a class="nav-link" href="user_management.html">User Management</a>
+                   </li>
                     <!-- <li class="nav-item">
                         <a class="nav-link disabled" href="#">Disabled</a>
                     </li> -->
                 </ul>
-                <a href="login.html" class="ms-auto link-light sign-out-btn">SignOut</a>
+                <a href="#" class="ms-auto link-light sign-out-btn">SignOut</a>
             
             </div>
         </nav>
     </header>
 
-    <!-- Begin page content -->
-    <!-- <main role="main" class="container"> -->
-        <!-- <main class="container">
-        <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-            </div>
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" id="inputGroupFile01"
-                aria-describedby="inputGroupFileAddon01">
-              <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-            </div>
-          </div> -->
-          
-    <!-- </main> -->
-    <main>
-    <div class="container mt-4">
-        
-        <div class="container welcome rounded" style="position: relative;">
-            
-            <div class="spacer"> </div>
-            <div style="left:0; bottom:0; position: absolute; margin-left: 10px; " class="mb-4">
-                <div class="mt-10 display-6">
-                    Welcome to Application
-                </div>
-                <div class="mb-4">
-                   Traffic Predictabilty
-                </div>
-            
-            </div> 
-        </div>
-        <div class="container" style="margin-top:20px ;">
-     
-            <div class="col col-lg-2 input-group-prepend" style="width:min-content;">
-              <label class="input-group-text" id="inputGroupFileAddon01" onclick="upload-btn()">Upload</label>
-              <input type="file" id="inputGroupFile01">
-            </div>
-            <!-- <div class="custom-file"> -->
-             
-              <!-- <p id="showName"></p> 
-
-            </div> -->
-              
-     
-    </div>
-         
    
+<main>
+  <div class ="rounded"style="margin-top:100px; border: radius 5px;">
+  <div class="p-3 mb-2 bg-secondary text-white">Welcome_deloitteUser</div>
+  </div>
+  <div class="row ms-2 mt-5">
+    <div class="col-4">
+      <p class="text-white bg-dark">List of Processed Files</p>
+      <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+          The current link item
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">A second link item</a>
+        <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+        <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+        <a class="list-group-item list-group-item-action disabled">A disabled link item</a>
+      </div>
     </div>
+    <div class="col-8">
+      <p class="text-white bg-dark">Document Metadata</p>
+      <div class="row mt-3">
+        <div class="col-4">
+          <label type="button" class="btn btn-secondary">Secondary</label>
+        </div>
+        <div class="col-8">some answer</div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-4">
+          <label type="button" class="btn btn-secondary">Secondary</label>
+        </div>
+        <div class="col-8">some answer</div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-4">
+          <label type="button" class="btn btn-secondary">Secondary</label>
+        </div>
+        <div class="col-8">some answer</div>
+      </div>
+      <p class="text-white bg-dark mt-3">Dataset</p>
+    </div>
+  </div>
 </main>
 
   <footer class="page-footer fixed-bottom bg-dark text-center font-small mt-4 wow fadeIn  ">
@@ -131,9 +124,6 @@
          document.getElementById("showName")=filename;
          alert(filename);
         });
-
-
-        
     </script>
 </body>
 
