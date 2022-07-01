@@ -123,13 +123,21 @@
         alert("about to be json");
         // WARNING: For POST requests, body is set to null by browsers.
         var data = JSON.stringify({
-            "id": "snaehfgdgvda@gmail.com",
-            "firstName": "snesvfdha",
-            "lastName": "dhafvgrne",
-            "age": 20,
-            "password": "abcef",
+            "id": document.getElementById("floatingInputEmail").value,
+            "firstName": document.getElementById("floatingInputfName").value,
+            "lastName": document.getElementById("floatingInputlName").value,
+           "age": parseInt(document.getElementById("floatingInputContact").value),
+           "password": document.getElementById("floatingPassword").value,
             "isDeleted": false
+
+            //"id":"sdgszdb",
+            //"firstName": "shfbjgjbkjz",
+            //"lastName": "test",
+            //"age": 34,
+            //"password": "zshfjzv",
+            //"isDeleted": false
         });
+        alert(data);
 
         var xhr = new XMLHttpRequest();
         xhr.withCredentials = true;
