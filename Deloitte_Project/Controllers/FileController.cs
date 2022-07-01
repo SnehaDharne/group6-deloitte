@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Threading.Tasks;
 using Deloitte_Project.Services;
+using Microsoft.AspNetCore.Cors;
 
 namespace Deloitte_Project.Controllers
 {
@@ -26,9 +27,10 @@ namespace Deloitte_Project.Controllers
             _fileService = fileService;
         }
         #endregion
-
+        [EnableCors("Policy1")]
         #region Upload
         [HttpPost(nameof(Upload))]
+        
         public IActionResult Upload([Required] List<IFormFile> formFiles)
         {
             string subDirectory;

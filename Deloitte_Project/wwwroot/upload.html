@@ -85,9 +85,9 @@
         <div class="container" style="margin-top:20px ;">
      
             
-                <form id="uploader" enctype="multipart/form-data">
+                <form id="fileInput" enctype="multipart/form-data">
                     <input type="file" id="fileUpload">
-                    <input type="submit" value="Upload file" />
+                    <button onclick="uploadfile()" >UPLOAD</button>
                 </form>
            
             <!-- <div class="custom-file"> -->
@@ -127,29 +127,56 @@
     <script src="../../assets/js/vendor/popper.min.js"></script>
     <script src="../../dist/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
     <script>
        
 
 
-        document.getElementById('uploader').onsubmit = function () {
-            var formdata = new FormData(); //FormData object
-            var fileInput = document.getElementById('fileInput');
-            //Iterating through each files selected in fileInput
-            for (i = 0; i < fileInput.files.length; i++) {
-                //Appending each file to FormData object
-                formdata.append(fileInput.files[i].name, fileInput.files[i]);
-            }
-            //Creating an XMLHttpRequest and sending
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/api/File/Upload');
-            xhr.send(formdata);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    alert(xhr.responseText);
-                }
-            }
-            return false;
-        } 
+
+        function uploadfile() {
+
+            alert("inside the funxtion");
+            var form = new FormData();
+            form.append("ContactsController.cs", fileInput.files[0], "/D:/Downloads/ContactsController.cs");
+            alert("form appended");
+            alert(form.name);
+
+
+             var settings = {
+            "url": "http://localhost:5000/api/File/Upload",
+            "method": "POST",
+            "timeout": 0,
+            "processData": false,
+            "mimeType": "multipart/form-data",
+            "contentType": false,
+             "data": form
+            };
+            alert(settings);
+
+           $.ajax(settings).done(function (response) {
+           alert(response);
+           });
+     }
+
+        // document.getElementById('uploader').onsubmit = function () {
+        //     var formdata = new FormData(); //FormData object
+        //     var fileInput = document.getElementById('fileInput');
+        //     //Iterating through each files selected in fileInput
+        //     for (i = 0; i < fileInput.files.length; i++) {
+        //         //Appending each file to FormData object
+        //         formdata.append(fileInput.files[i].name, fileInput.files[i]);
+        //     }
+        //     //Creating an XMLHttpRequest and sending
+        //     var xhr = new XMLHttpRequest();
+        //     xhr.open('POST', '/api/File/Upload');
+        //     xhr.send(formdata);
+        //     xhr.onreadystatechange = function () {
+        //         if (xhr.readyState == 4 && xhr.status == 200) {
+        //             alert(xhr.responseText);
+        //         }
+        //     }
+        //     return false;
+        // } 
 
 
 

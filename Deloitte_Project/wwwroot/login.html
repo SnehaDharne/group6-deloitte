@@ -93,20 +93,37 @@
                     <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
                     <label for="floatingPassword">Password</label>
                 </div>
-
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
-                </div>
-                <a href="Home.html" class="w-100 btn btn-lg btn-primary" type="submit">Sign in</a>
+                
+          
+                <button onclick="signIn()" class="w-100 btn btn-lg btn-primary">Sign in</button>
                 <a href="SignUp.html" class="w-100 btn btn-lg btn-primary" type="submit">click here to register</a>
-                <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
             </form>
         </main>
 
     </div>
 
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    function signIn() {
+       
+        var email = document.getElementById("floatingInput").value;
+        var pw = document.getElementById("floatingPassword").value;
+ 
+        var str = "http://localhost:5000/api/User/";
+        str += email;
+        str += '/';
+        str += pw;
+        alert(str);
+        var settings = {
+            "url": str,
+            "method": "GET",
+            "timeout": 0,
+        };
 
+        $.ajax(settings).done(function (response) {
+            alert(response);
+        });
+    }
+</script>
 </html>
