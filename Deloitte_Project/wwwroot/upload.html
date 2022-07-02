@@ -86,7 +86,12 @@
          
                     <input type="file" id="fileUpload">
                     <button type="button" onclick="uploadfile()" >UPLOAD</button>
+<<<<<<< HEAD
   
+=======
+                </form>
+           
+>>>>>>> 9abeb8e63e41b6d37eaac099626b28e06b5193c6
             <!-- <div class="custom-file"> -->
              
               <!-- <p id="showName"></p> 
@@ -136,9 +141,14 @@
             const fileInput = document.getElementById('fileUpload');
             //form.append("file", fileInput.files[0], "TEMP.pbix");
             //alert(form.values());
+<<<<<<< HEAD
             alert(fileInput.value);
             var str = fileInput.value;
             alert(str);
+=======
+            alert(fileInput.files[0].name);
+
+>>>>>>> 9abeb8e63e41b6d37eaac099626b28e06b5193c6
             var currentdate = new Date();
             var datetime = currentdate.getDate() + "/"
                 + (currentdate.getMonth() + 1) + "/"
@@ -146,7 +156,11 @@
                 + currentdate.getHours() + ":"
                 + currentdate.getMinutes() + ":"
                 + currentdate.getSeconds();
+<<<<<<< HEAD
             alert(datetime);
+=======
+            //alert(datetime);
+>>>>>>> 9abeb8e63e41b6d37eaac099626b28e06b5193c6
 
             // Metadata push
             var data = JSON.stringify({
@@ -175,9 +189,14 @@
 
             // File Upload
             var upload_data = new FormData();
+<<<<<<< HEAD
             alert(fileInput.files[0].value);
             upload_data.append("files", fileInput.files[0], fileInput.files[0].name);
             alert(upload_data.value);
+=======
+            upload_data.append("", fileInput.files[0], fileInput.files[0].name);
+
+>>>>>>> 9abeb8e63e41b6d37eaac099626b28e06b5193c6
             var upload_xhr = new XMLHttpRequest();
             upload_xhr.withCredentials = true;
 
