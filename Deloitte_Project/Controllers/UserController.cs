@@ -127,7 +127,6 @@ namespace Deloitte_Project.Controllers
 
         // POST api/<UserController>
         [HttpPost]
-
         [EnableCors("Policy1")]
         public async Task<ActionResult<User>> PostUser(User user)
         {

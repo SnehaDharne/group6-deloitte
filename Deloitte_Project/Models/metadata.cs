@@ -10,3 +10,11 @@
         public string created_by { get; set; }
     }
 }
+//{
+//    "id": 123,
+//    "file_name": "svb",
+//    "file_size": 12,
+//    "sub_directory": "qergtdng",
+//    "created_on": "egsv",
+//    "created_by": "qwaegsf"
+//}
