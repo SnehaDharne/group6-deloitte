@@ -1,6 +1,6 @@
 ﻿namespace Deloitte_Project.Models
 {
-    public class User
+    public class Session
     {
         public string Id { get; set; }
         public string firstName { get; set; }

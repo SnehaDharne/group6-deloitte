@@ -45,13 +45,38 @@ namespace Deloitte_Project.Migrations
                     b.ToTable("Metadatas");
                 });
 
+            modelBuilder.Entity("Deloitte_Project.Models.Session", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("contact")
+                        .HasColumnType("decimal(20,0)");
+
+                    b.Property<string>("firstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("lastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sessions");
+                });
+
             modelBuilder.Entity("Deloitte_Project.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("age")
-                        .HasColumnType("int");
+                    b.Property<decimal>("contact")
+                        .HasColumnType("decimal(20,0)");
 
                     b.Property<string>("firstName")
                         .HasColumnType("nvarchar(max)");

@@ -163,9 +163,9 @@ namespace Deloitte_Project.Controllers
             {
                 dbUser.lastName = user.lastName;
             }
-            if (user.age != null)
+            if (user.contact != null)
             {
-                dbUser.age = user.age;
+                dbUser.contact = user.contact;
             }
             if (user.password != "")
             {

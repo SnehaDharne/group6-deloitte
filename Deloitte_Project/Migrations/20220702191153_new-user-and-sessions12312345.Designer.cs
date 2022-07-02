@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Deloitte_Project.Migrations
 {
     [DbContext(typeof(CoreDbContext))]
-    [Migration("20220629073449_createMetadata3")]
-    partial class createMetadata3
+    [Migration("20220702191153_new-user-and-sessions12312345")]
+    partial class newuserandsessions12312345
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,7 +20,7 @@ namespace Deloitte_Project.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Deloitte_Project.Models.metadata", b =>
+            modelBuilder.Entity("Deloitte_Project.Models.Metadata", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,16 +44,41 @@ namespace Deloitte_Project.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Metadata");
+                    b.ToTable("Metadatas");
                 });
 
-            modelBuilder.Entity("Deloitte_Project.Models.user", b =>
+            modelBuilder.Entity("Deloitte_Project.Models.Session", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("age")
-                        .HasColumnType("int");
+                    b.Property<decimal>("contact")
+                        .HasColumnType("decimal(20,0)");
+
+                    b.Property<string>("firstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("lastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sessions");
+                });
+
+            modelBuilder.Entity("Deloitte_Project.Models.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("contact")
+                        .HasColumnType("decimal(20,0)");
 
                     b.Property<string>("firstName")
                         .HasColumnType("nvarchar(max)");

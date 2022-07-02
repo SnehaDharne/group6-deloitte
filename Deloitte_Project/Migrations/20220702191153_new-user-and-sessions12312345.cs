@@ -2,7 +2,7 @@
 
 namespace Deloitte_Project.Migrations
 {
-    public partial class createMetadata1 : Migration
+    public partial class newuserandsessions12312345 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
