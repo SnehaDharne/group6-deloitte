@@ -95,7 +95,7 @@
                 </div>
 
 
-                <button onclick="signIn()" class="w-100 btn btn-lg btn-primary">Sign in</button>
+                <button onclick="signIn()" class="w-100 btn btn-lg btn-primary" type="button">Sign in</button>
                 <a href="SignUp.html" class="w-100 btn btn-lg btn-primary" type="submit">click here to register</a>
             </form>
         </main>
@@ -119,7 +119,7 @@
                 async: false,
             };
             $.ajax(settings).done(function (response) {
-                alert(JSON.stringify(response));
+                window.open("http://localhost:5000/home.html", "_self");
             }).fail(function (response) {
                 alert(JSON.stringify(response));
             });
