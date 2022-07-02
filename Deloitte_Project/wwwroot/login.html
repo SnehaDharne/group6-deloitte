@@ -80,16 +80,16 @@
 </head>
 <body class="text-center">
     <div class="container" style="margin: 100px">
-        <main class="form-signin w-100 m-auto">
+        <main class="form-signin m-auto" style="width:500px">
             <form>
 
                 <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
-                <div class="form-floating">
+                <div class="form-floating mb-3">
                     <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                     <label for="floatingInput">Email address</label>
                 </div>
-                <div class="form-floating">
+                <div class="form-floating mb-3">
                     <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
                     <label for="floatingPassword">Password</label>
                 </div>
@@ -123,6 +123,10 @@
             }).fail(function (response) {
                 alert(JSON.stringify(response));
             });
+        }
+
+        function Redirect() {
+            window.location.href = 'Home.html';
         }
     </script>
 </body>
