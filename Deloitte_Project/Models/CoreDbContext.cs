@@ -15,7 +15,7 @@ namespace Deloitte_Project.Models
         {
         }
         public DbSet<User> Users { get; set; }
-        public DbSet<metadata> Metadata { get; set; }
+        public DbSet<Metadata> Metadatas { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

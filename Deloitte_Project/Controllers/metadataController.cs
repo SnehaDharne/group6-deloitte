@@ -24,7 +24,7 @@ namespace Deloitte_Project.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Metadata>>> GetMetadata()
         {
-            return await _context.Metadata.Where(c => c.isDeleted == false).ToListAsync();
+            return await _context.Metadatas.ToListAsync();
         }
 
         // GET api/<MetadataController>/5
@@ -48,10 +48,10 @@ namespace Deloitte_Project.Controllers
         [EnableCors("Policy1")]
         public async Task<ActionResult<Metadata>> PostMetadata(Metadata metadata)
         {
-            _context.Metadata.Add(metadata);
+            _context.Metadatas.Add(metadata);
             await _context.SaveChangesAsync();
 
-            return Ok(_context.Metadata);
+            return Ok(_context.Metadatas);
         }
 
         // PUT api/<MetadataController>/5
@@ -74,11 +74,11 @@ namespace Deloitte_Project.Controllers
             //_context.Users.Remove(user);
 
             // Soft delete below
-            metadata.isDeleted = true;
-            await _context.SaveChangesAsync();
+            //metadata.isDeleted = true;
+            //await _context.SaveChangesAsync();
 
             //return NoContent();
-            return Ok(_context.Metadata);
+            return Ok(_context.Metadatas);
         }
     }
 }
