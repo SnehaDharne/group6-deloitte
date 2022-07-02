@@ -146,10 +146,10 @@ namespace Deloitte_Project.Controllers
         }
 
         // PUT api/<UserController>/5
-        [HttpPut("{Id}")]
-        public async Task<IActionResult> PutUser(string Id, User user)
+        [HttpPut]
+        public async Task<IActionResult> PutUser(User user)
         {
-            var dbUser = await _context.Users.FindAsync(Id);
+            var dbUser = await _context.Users.FindAsync(user.Id);
             if (dbUser == null)
             {
                 return NotFound();
@@ -158,7 +158,7 @@ namespace Deloitte_Project.Controllers
             dbUser.lastName = user.lastName;
             dbUser.age = user.age;
             dbUser.isDeleted = false;
-
+            dbUser.password = user.password;
             await _context.SaveChangesAsync();
 
             return Ok(dbUser);

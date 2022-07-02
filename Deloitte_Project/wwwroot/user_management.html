@@ -63,17 +63,17 @@
   </div>
   <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="johndoe@gmail.com">
+    <input type="email" class="form-control" id="email" placeholder="johndoe@gmail.com">
   </div>
   <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label">Change Password</label>
-    <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="password">
+    <input type="password" class="form-control" id="passw" placeholder="password">
   </div>
   <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label">Contact Number</label>
-    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="9999999999">
+    <input type="number" class="form-control" id="contact" placeholder="9999999999">
   </div>
-  <button type="button" class="btn btn-primary">Update</button>
+  <button type="button" onclick ="Update() "class="btn btn-primary">Update</button>
 </div>
 </main>
 
@@ -107,6 +107,32 @@
          document.getElementById("showName")=filename;
          alert(filename);
         });
+
+        function Update() {
+            alert("about to be json");
+            var data = JSON.stringify({
+                "id": document.getElementById("email").value,
+                "firstName": document.getElementById("fName").value,
+                "lastName": document.getElementById("lName").value,
+                "age": parseInt(document.getElementById("contact").value),
+                "password": document.getElementById("passw").value,
+                "isDeleted": false
+            });
+            alert(data);
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+
+            xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4) {
+                    console.log(this.responseText);
+                }
+            });
+
+            xhr.open("PUT", "http://localhost:5000/api/User");
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.send(data);
+        }
     </script>
 </body>
 

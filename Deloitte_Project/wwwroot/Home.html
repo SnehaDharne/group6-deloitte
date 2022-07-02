@@ -60,36 +60,37 @@
     <div class="col-4">
       <p class="text-white bg-dark">List of Processed Files</p>
       <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+        <a href="#" class="list-group-item list-group-item-action active" id = "selected" aria-current="true">
           The current link item
         </a>
-        <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-        <a href="#" class="list-group-item list-group-item-action">A third link item</a>
-        <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-        <a class="list-group-item list-group-item-action disabled">A disabled link item</a>
+        <button class="list-group-item list-group-item-action" id = "not_selected" type = "button" onclick ="showDetails()">A second link item</button>
+        <button class="list-group-item list-group-item-action" id = "not_selected" type = "button" onclick ="showDetails()">A second link item</button>
+        <button class="list-group-item list-group-item-action" id = "not_selected" type = "button" onclick ="showDetails()">A second link item</button>
+        <button class="list-group-item list-group-item-action" id = "not_selected" type = "button" onclick ="showDetails()">A second link item</button>
+        
       </div>
     </div>
     <div class="col-8">
       <p class="text-white bg-dark">Document Metadata</p>
       <div class="row mt-3">
         <div class="col-4">
-          <label type="button" class="btn btn-secondary">Secondary</label>
+          <label type="button" id = "file_name" class="btn btn-secondary">File Name</label>
         </div>
-        <div class="col-8">some answer</div>
+        <div class="col-8" id = "file_name.txt">some answer</div>
       </div>
       <div class="row mt-3">
         <div class="col-4">
-          <label type="button" class="btn btn-secondary">Secondary</label>
+          <label type="button"  id = "created_by" class="btn btn-secondary">Created By</label>
         </div>
-        <div class="col-8">some answer</div>
+        <div class="col-8" id = "created_by.txt">some answer</div>
       </div>
       <div class="row mt-3">
         <div class="col-4">
-          <label type="button" class="btn btn-secondary">Secondary</label>
+          <label type="button"  id = "created_on" class="btn btn-secondary">Created On</label>
         </div>
-        <div class="col-8">some answer</div>
+        <div class="col-8"  id = "created_on.txt">some answer</div>
       </div>
-      <p class="text-white bg-dark mt-3">Dataset</p>
+     
     </div>
   </div>
 </main>
@@ -119,11 +120,16 @@
     <script src="../../dist/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>
-        $("#files").change(function() {
-        filename = this.files[0].name;
-         document.getElementById("showName")=filename;
-         alert(filename);
-        });
+        function showDetails(){
+          alert("im in da function too much raining")
+           
+            document.getElementById("file_name.txt").innerHTML="hello";
+            document.getElementById("created_by.txt").innerHTML="hello";
+            document.getElementById("created_on.txt").innerHTML="hello";
+            document.getElementById("")
+        }
+
+
     </script>
 </body>
 

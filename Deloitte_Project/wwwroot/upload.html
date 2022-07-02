@@ -83,13 +83,10 @@
             </div> 
         </div>
         <div class="container" style="margin-top:20px ;">
-     
-            
-                <form id="fileInput" enctype="multipart/form-data">
+         
                     <input type="file" id="fileUpload">
-                    <button onclick="uploadfile()" >UPLOAD</button>
-                </form>
-           
+                    <button type="button" onclick="uploadfile()" >UPLOAD</button>
+  
             <!-- <div class="custom-file"> -->
              
               <!-- <p id="showName"></p> 
@@ -137,9 +134,66 @@
 
             var form = new FormData();
             const fileInput = document.getElementById('fileUpload');
-            form.append("file", fileInput.files[0], "TEMP.pbix");
+            //form.append("file", fileInput.files[0], "TEMP.pbix");
             //alert(form.values());
-            alert(fileInput.files[0].size);
+            alert(fileInput.value);
+            var str = fileInput.value;
+            alert(str);
+            var currentdate = new Date();
+            var datetime = currentdate.getDate() + "/"
+                + (currentdate.getMonth() + 1) + "/"
+                + currentdate.getFullYear() + " @ "
+                + currentdate.getHours() + ":"
+                + currentdate.getMinutes() + ":"
+                + currentdate.getSeconds();
+            alert(datetime);
+
+            // Metadata push
+            var data = JSON.stringify({
+                "file_name": fileInput.files[0].name,
+                "file_size": fileInput.files[0].size,
+                "sub_directory": "qergtdng",
+                "created_on": datetime,
+                "created_by": "qwaegsf"
+            });
+            alert(data);
+
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+
+            xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4) {
+                    console.log(this.responseText);
+                }
+            });
+
+            xhr.open("POST", "http://localhost:5000/api/Metadata");
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+            xhr.send(data);
+
+            // File Upload
+            var upload_data = new FormData();
+            alert(fileInput.files[0].value);
+            upload_data.append("files", fileInput.files[0], fileInput.files[0].name);
+            alert(upload_data.value);
+            var upload_xhr = new XMLHttpRequest();
+            upload_xhr.withCredentials = true;
+
+            upload_xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4) {
+                    console.log(this.responseText);
+                }
+            });
+
+            upload_xhr.open("POST", "http://localhost:5000/api/File/Upload");
+            xhr.setRequestHeader("Content-Type", "multipart/form-data");
+            upload_xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            upload_xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+            upload_xhr.send(upload_data);
+
+
 
             //var settings = {
             //    "url": "http://localhost:5000/api/File/Upload",
