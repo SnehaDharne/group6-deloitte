@@ -83,11 +83,12 @@ namespace Deloitte_Project.Controllers
         }
 
         private readonly CoreDbContext _context;
-        // GET: api/<UserController>
         public UserController(CoreDbContext context)
         {
             _context = context;
         }
+
+        // GET: api/<UserController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {

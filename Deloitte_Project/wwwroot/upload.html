@@ -135,27 +135,33 @@
 
         function uploadfile() {
 
-            alert("inside the funxtion");
             var form = new FormData();
-            form.append("ContactsController.cs", fileInput.files[0], "/D:/Downloads/ContactsController.cs");
-            alert("form appended");
-            alert(form.name);
+            const fileInput = document.getElementById('fileUpload');
+            form.append("file", fileInput.files[0], "TEMP.pbix");
+            //alert(form.values());
+            alert(fileInput.files[0].size);
 
+            //var settings = {
+            //    "url": "http://localhost:5000/api/File/Upload",
+            //    "method": "POST",
+            //    "timeout": 0,
+            //    "processData": false,
+            //    "mimeType": "multipart/form-data",
+            //    "contentType": false,
+            //    "data": form,
+            //    //"headers": {
+            //    //    "accept": "*/*",
+            //    //    "Content-Type": "multipart/form-data"
+            //    //},
+            //    async: false
+            //};
 
-             var settings = {
-            "url": "http://localhost:5000/api/File/Upload",
-            "method": "POST",
-            "timeout": 0,
-            "processData": false,
-            "mimeType": "multipart/form-data",
-            "contentType": false,
-             "data": form
-            };
-            alert(settings);
-
-           $.ajax(settings).done(function (response) {
-           alert(response);
-           });
+            //$.ajax(settings).done(function (response) {
+            //    alert(JSON.stringify(response));
+            //    console.log(response);
+            //}).fail(function (response) {
+            //    alert("fail");
+            //});
      }
 
         // document.getElementById('uploader').onsubmit = function () {

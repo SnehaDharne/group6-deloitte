@@ -1,6 +1,6 @@
 ﻿namespace Deloitte_Project.Models
 {
-    public class metadata
+    public class Metadata
     {
         public int Id { get; set; }
         public string file_name { get; set; }
