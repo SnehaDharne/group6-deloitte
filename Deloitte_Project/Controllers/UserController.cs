@@ -154,11 +154,25 @@ namespace Deloitte_Project.Controllers
             {
                 return NotFound();
             }
-            dbUser.firstName = user.firstName;
-            dbUser.lastName = user.lastName;
-            dbUser.age = user.age;
+
+            if (user.firstName != "")
+            {
+                dbUser.firstName = user.firstName;
+            }
+            if (user.lastName != "")
+            {
+                dbUser.lastName = user.lastName;
+            }
+            if (user.age != null)
+            {
+                dbUser.age = user.age;
+            }
+            if (user.password != "")
+            {
+                dbUser.password = user.password;
+            }
+
             dbUser.isDeleted = false;
-            dbUser.password = user.password;
             await _context.SaveChangesAsync();
 
             return Ok(dbUser);
