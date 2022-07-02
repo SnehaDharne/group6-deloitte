@@ -28,7 +28,7 @@ namespace Deloitte_Project.Controllers
         }
         // GET: api/<SessionController>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Session>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<Session>>> GetSessions()
         {
             // return await _context.Contacts.ToListAsync();
             // Hide entries with IsDeleted = true

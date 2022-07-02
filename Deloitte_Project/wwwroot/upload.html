@@ -141,10 +141,22 @@
                 + currentdate.getMinutes() + ":"
                 + currentdate.getSeconds();
 
+            //getting user details
+            var settings = {
+                "url": "http://localhost:5000/api/Session",
+                "method": "GET",
+                "timeout": 0,
+            };
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+            });
+
             // Metadata push
+
             var data = JSON.stringify({
                 "file_name": fileInput.files[0].name,
-                "file_size": fileInput.files[0].size/1024/1024,
+                "file_size": fileInput.files[0].size,
                 "sub_directory": "repo/OUTPUT",
                 "created_on": datetime,
                 "created_by": "qwaegsf"
@@ -185,48 +197,7 @@
             
 
 
-            //var settings = {
-            //    "url": "http://localhost:5000/api/File/Upload",
-            //    "method": "POST",
-            //    "timeout": 0,
-            //    "processData": false,
-            //    "mimeType": "multipart/form-data",
-            //    "contentType": false,
-            //    "data": form,
-            //    //"headers": {
-            //    //    "accept": "*/*",
-            //    //    "Content-Type": "multipart/form-data"
-            //    //},
-            //    async: false
-            //};
-
-            //$.ajax(settings).done(function (response) {
-            //    alert(JSON.stringify(response));
-            //    console.log(response);
-            //}).fail(function (response) {
-            //    alert("fail");
-            //});
      }
-
-        // document.getElementById('uploader').onsubmit = function () {
-        //     var formdata = new FormData(); //FormData object
-        //     var fileInput = document.getElementById('fileInput');
-        //     //Iterating through each files selected in fileInput
-        //     for (i = 0; i < fileInput.files.length; i++) {
-        //         //Appending each file to FormData object
-        //         formdata.append(fileInput.files[i].name, fileInput.files[i]);
-        //     }
-        //     //Creating an XMLHttpRequest and sending
-        //     var xhr = new XMLHttpRequest();
-        //     xhr.open('POST', '/api/File/Upload');
-        //     xhr.send(formdata);
-        //     xhr.onreadystatechange = function () {
-        //         if (xhr.readyState == 4 && xhr.status == 200) {
-        //             alert(xhr.responseText);
-        //         }
-        //     }
-        //     return false;
-        // } 
 
 
 
