@@ -175,12 +175,14 @@
             upload_xhr.addEventListener("readystatechange", function () {
                 if (this.readyState === 4) {
                     console.log(this.responseText);
+                    window.open("http://localhost:5000/upload.html", "_self");
                 }
             });
 
             upload_xhr.open("POST", "http://localhost:5000/api/File/Upload");
             upload_xhr.send(upload_data);
 
+            
 
 
             //var settings = {
