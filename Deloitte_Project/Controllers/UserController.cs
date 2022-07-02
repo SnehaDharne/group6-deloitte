@@ -104,9 +104,9 @@ namespace Deloitte_Project.Controllers
         // GET api/<UserController>/5
         [EnableCors("Policy1")]
         [HttpGet("{Id}/{password}")]
-        public ActionResult<User> GetDetails(string Id, string password)
+        public async Task<ActionResult<User>> GetDetails(string Id, string password)
         {
-            var user = _context.Users.Find(Id);
+            var user = await _context.Users.FindAsync(Id);
             //fix - make password null condition
             if (user == null)
             {
@@ -116,7 +116,7 @@ namespace Deloitte_Project.Controllers
             {
                 if (Decrypt(user.password) == password)
                 {
-                    return Ok(user);
+                    return user;
 
                 }
                 else

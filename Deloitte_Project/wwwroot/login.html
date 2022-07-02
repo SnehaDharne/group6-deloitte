@@ -79,10 +79,10 @@
     <link href="signin.css" rel="stylesheet">
 </head>
 <body class="text-center">
-    <div class ="container" style="margin: 100px">
+    <div class="container" style="margin: 100px">
         <main class="form-signin w-100 m-auto">
             <form>
-                
+
                 <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
                 <div class="form-floating">
@@ -93,37 +93,38 @@
                     <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
                     <label for="floatingPassword">Password</label>
                 </div>
-                
-          
+
+
                 <button onclick="signIn()" class="w-100 btn btn-lg btn-primary">Sign in</button>
                 <a href="SignUp.html" class="w-100 btn btn-lg btn-primary" type="submit">click here to register</a>
             </form>
         </main>
 
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function signIn() {
 
+            var email = document.getElementById("floatingInput").value;
+            var pw = document.getElementById("floatingPassword").value;
+
+            var str = "http://localhost:5000/api/User/";
+            str += email;
+            str += '/';
+            str += pw;
+            var settings = {
+                "url": str,
+                "method": "get",
+                "timeout": 0,
+                async: false,
+            };
+            $.ajax(settings).done(function (response) {
+                alert(JSON.stringify(response));
+            }).fail(function (response) {
+                alert(JSON.stringify(response));
+            });
+        }
+    </script>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-    function signIn() {
-       
-        var email = document.getElementById("floatingInput").value;
-        var pw = document.getElementById("floatingPassword").value;
- 
-        var str = "http://localhost:5000/api/User/";
-        str += email;
-        str += '/';
-        str += pw;
-        alert(str);
-        var settings = {
-            "url": str,
-            "method": "GET",
-            "timeout": 0,
-        };
 
-        $.ajax(settings).done(function (response) {
-            alert(response);
-        });
-    }
-</script>
 </html>
