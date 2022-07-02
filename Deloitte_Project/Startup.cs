@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Deloitte_Project.Services;
 
 namespace Deloitte_Project
 {
@@ -39,6 +40,7 @@ namespace Deloitte_Project
             });
             services.AddDbContext<CoreDbContext>(op => op.UseSqlServer(Configuration.GetConnectionString("Database")));
             services.AddControllers();
+            services.AddTransient<IFileService, FileService>();
 
         }
 
