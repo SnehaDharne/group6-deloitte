@@ -76,21 +76,21 @@
              
           </div>
           <div class="col-8">
-          <div class=" d-inline-flex" id="file_name.txt">essay1.txt </div>
-          <button alt="Download" onclick ="Download()" class="btn btn-secondary" type="button" style="width = 30px">download</button>
+          <div class=" d-inline-flex" id="file_nametxt">essay1.txt </div>
+          <button alt="Download" onclick ="Download()" class="btn btn-secondary mx-5" type="button" style="width:fit-content">download</button>
         </div>
       </div>
       <div class="row mt-3">
         <div class="col-4">
           <label type="button"  id = "created_by" class="btn btn-secondary">Created By</label>
         </div>
-        <div class="col-8 d-inline-flex" id = "created_by.txt">sneha@deloitte.com</div>
+        <div class="col-8 d-inline-flex" id = "created_bytxt">sneha@deloitte.com</div>
       </div>
       <div class="row mt-3">
         <div class="col-4">
           <label type="button"  id = "created_on" class="btn btn-secondary">Created On</label>
         </div>
-        <div class="col-8 d-inline-flex"  id = "created_on.txt">03/07/2022</div>
+        <div class="col-8 d-inline-flex"  id = "created_ontxt">03/07/2022</div>
       </div>
      
     </div>
@@ -137,9 +137,9 @@
 
             $.ajax(settings).done(function (response) {
                 
-                document.getElementById("file_name.txt").innerHTML = response[2];
-                document.getElementById("created_by.txt").innerHTML = response[0];
-                document.getElementById("created_on.txt").innerHTML = response[1];
+                document.getElementById("file_nametxt").innerHTML = response[2];
+                document.getElementById("created_bytxt").innerHTML = response[0];
+                document.getElementById("created_ontxt").innerHTML = response[1];
             });
 
 
@@ -174,13 +174,17 @@
         }
 
         function Download() {
+            var fn = document.getElementById("file_nametxt").innerHTML.toString();
+            var url_downl = "http://localhost:5000/api/File/Download?fileName=";
+            url_downl += fn;
+
             var requestOptions = {
                 method: 'GET',
                 redirect: 'follow',
                 async: false
             };
 
-            fetch("http://localhost:5000/api/File/Download?fileName=TEMP.pbix", requestOptions)
+            fetch(url_downl, requestOptions)
                 .then(response => response.blob())
                 .then(blob => {
                     const url = window.URL.createObjectURL(blob);
@@ -188,7 +192,7 @@
                     a.style.display = 'none';
                     a.href = url;
                     // the filename you want
-                    a.download = 'TEST_OUTPUT.pbix';
+                    a.download = fn;
                     document.body.appendChild(a);
                     a.click();
                     window.URL.revokeObjectURL(url);
