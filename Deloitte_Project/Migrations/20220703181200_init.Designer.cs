@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Deloitte_Project.Migrations
 {
     [DbContext(typeof(CoreDbContext))]
-    [Migration("20220703170516_init")]
+    [Migration("20220703181200_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

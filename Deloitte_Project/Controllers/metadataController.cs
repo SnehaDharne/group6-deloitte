@@ -61,9 +61,31 @@ namespace Deloitte_Project.Controllers
 
                 string[] result = new String[3];
 
-                result[0] = met.created_by.ToString();
-                result[1] = met.created_on.ToString();
-                result[2] = met.file_name.ToString();
+                if (met.created_by == null) {
+                    result[0] = "CREATED_BY";
+                } else
+                {
+                    result[0] = met.created_by.ToString();
+                }
+
+                if (met.created_by == null)
+                {
+                    result[1] = "CREATED_ON";
+                }
+                else
+                {
+                    result[1] = met.created_on.ToString();
+                }
+
+                if (met.created_by == null)
+                {
+                    result[2] = "FILE_NAME";
+                }
+                else
+                {
+                    result[2] = met.file_name.ToString();
+                }
+
                 return result;
 
                 
