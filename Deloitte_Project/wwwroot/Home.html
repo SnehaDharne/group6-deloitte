@@ -173,59 +173,35 @@
             
         }
 
-        //function Download() {
-        //    alert("in the download function");
-        //    fname = "essay1.txt";
-        //    var downl_url = "http://localhost:5000/api/File/Download?fileName=";
-        //    downl_url += fname;
-        //    alert(downl_url);
-        //    var dxhr = new XMLHttpRequest();
-        //    dxhr.withCredentials = true;
-
-        //    dxhr.addEventListener("readystatechange", function () {
-        //        if (this.readyState === 4) {
-        //            alert(this.responseText);
-        //            alert("inside");
-        //            //a = document.createElement('a');
-        //            //a.href = window.URL.createObjectURL(this.response);
-        //            //// Give filename you wish to download
-        //            //a.download = "essay1.txt";
-        //            //a.style.display = 'none';
-        //            //document.body.appendChild(a);
-        //            //a.click();
-        //            //WebClient webClient = new WebClient();
-        //            //webClient.DownloadFile("http://localhost:5000/Home.html/", @"essay1.txt");
-
-
-        //        }
-        //    });
-        //    alert("outside");
-        //    dxhr.open("GET", downl_url, false);
-
-
-        //  /*  dxhr.responseType = 'blob';*/
-        // //   dxhr.send(JSON.stringify(data));
-        //    dxhr.send();
-        //}
-
-
-
         function Download() {
+            
             var settings = {
-                "url": "http://localhost:5000/api/File/Download?fileName=essay1.txt",
+                "url": "http://localhost:5000/api/File/Download?fileName=gre.pdf",
                 "method": "GET",
                 "timeout": 0,
                 "async": false,
+                "responseType": 'arraybuffer',
 
             };
 
             $.ajax(settings).done(function (response) {
                 alert("success could be");
-                var blob = new Blob([response]);
-                var link = document.createElement('a');
-                link.href = window.URL.createObjectURL(blob);
-                link.download = "essay1.txt",
-                link.click();
+                var blob = new Blob([response], { type: 'application/pdf' });
+                //var link = document.createElement('a');???
+                //link.href = window.URL.createObjectURL(blob);
+                //link.download = "gre.pdf",
+                //link.click();
+
+
+                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                    window.navigator.msSaveOrOpenBlob(blob); // for IE
+                }
+                else {
+                    var fileURL = URL.createObjectURL(blob);
+                    var newWin = window.open(fileURL);
+                    newWin.focus();
+                    newWin.reload();
+                }
             });
         }
 

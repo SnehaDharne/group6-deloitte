@@ -78,7 +78,7 @@ namespace Deloitte_Project.Controllers
                 stream.CopyTo(memory);
             }
             memory.Position = 0;
-            return File(memory, "text/plain", Path.GetFileName(path));
+            return File(memory, "application/pdf", Path.GetFileName(path));
         }
         #endregion
     }
