@@ -1,3 +1,3 @@
-﻿class session {
+﻿function signoutbtn(){
 
 }

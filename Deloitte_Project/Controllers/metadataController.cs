@@ -102,16 +102,16 @@ namespace Deloitte_Project.Controllers
 
         // DELETE api/<MetadataController>/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMetadata(string Id)
+        public async Task<IActionResult> DeleteMetadata(int Id)
         {
-            var metadata = await _context.Users.FindAsync(Id);
+            var metadata = await _context.Metadatas.FindAsync(Id);
             if (metadata == null)
             {
                 return NotFound();
             }
 
             // Actually deletes entry
-            //_context.Users.Remove(user);
+            //_context.Metadatas.Remove(metadata);
 
             // Soft delete below
             //metadata.isDeleted = true;

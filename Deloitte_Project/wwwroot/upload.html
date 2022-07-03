@@ -45,7 +45,7 @@
                         <a class="nav-link disabled" href="#">Disabled</a>
                     </li> -->
                 </ul>
-                <a href="login.html" class="ms-auto link-light sign-out-btn">SignOut</a>
+            <button class="ms-auto link-light sign-out-btn" onclick="signoutbtn()">SignOut</button>
             
             </div>
         </nav>
@@ -207,8 +207,26 @@
             
 
 
-     }
+        }
+        function signoutbtn() {
+            var new_xhr = new XMLHttpRequest();
+            new_xhr.withCredentials = true;
 
+            new_xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4) {
+                    alert(this.responseText);
+                    var sess_user = this.responseText;
+                }
+            });
+
+            new_xhr.open("GET", "http://localhost:5000/api/Session/GetId");
+
+            new_xhr.send();
+
+
+
+
+        }
 
 
 
