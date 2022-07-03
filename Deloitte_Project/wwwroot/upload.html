@@ -144,7 +144,6 @@
                 "url": "http://localhost:5000/api/Session/GetId",
                 "method": "GET",
                 "timeout": 0,
-                async: false,
             };
 
             $.ajax(settings).done(function (response) {
@@ -201,7 +200,7 @@
                 }
             });
 
-            upload_xhr.open("POST", "http://localhost:5000/api/File/Upload");
+            upload_xhr.open("POST", "http://localhost:5000/api/File/Upload", false);
             upload_xhr.send(upload_data);
 
             

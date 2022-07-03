@@ -36,7 +36,7 @@ namespace Deloitte_Project.Services
                 var filePath = Path.Combine(target, file.FileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    await file.CopyToAsync(stream);
+                    file.CopyTo(stream);
                 }
             });
         }
