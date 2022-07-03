@@ -138,20 +138,37 @@
                 + (currentdate.getMonth() + 1) + "/"
                 + currentdate.getFullYear();
 
-            var userid;
             //getting session details
-            var settings = {
-                "url": "http://localhost:5000/api/Session/GetId",
+            var name, firstname, lastname;
+            var settingsFName = {
+                "url": "http://localhost:5000/api/Session/GetfirstName",
                 "method": "GET",
                 "timeout": 0,
                 "async": false
             };
 
-            $.ajax(settings).done(function (response) {
-                userid = response;
+            $.ajax(settingsFName).done(function (response) {
+                firstname = response;
             }).fail(function (response) {
                 alert("fail");
             });
+
+
+            var settingsLName = {
+                "url": "http://localhost:5000/api/Session/GetlastName",
+                "method": "GET",
+                "timeout": 0,
+                "async": false
+            };
+
+            $.ajax(settingsLName).done(function (response) {
+                lastname = response;
+            }).fail(function (response) {
+                alert("fail");
+            });
+
+            name = firstname + " " + lastname;
+            alert(name);
             //var xhr = new XMLHttpRequest();
             //xhr.withCredentials = true;
 
@@ -169,7 +186,7 @@
             var data = JSON.stringify({
                 "file_name": fileInput.files[0].name,
                 "created_on": datetime,
-                "created_by": userid
+                "created_by": name
             });
 
             var xhr = new XMLHttpRequest();
