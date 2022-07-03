@@ -118,15 +118,19 @@
             }).fail(function (response) {
                 alert("fail");
             });
+
+            var contact_id = document.getElementById("contact").value;
+            if (!contact_id) {
+                contact_id = "0";
+            }
             var data = JSON.stringify({
                 "id": userid,
                 "firstName": document.getElementById("fName").value,
                 "lastName": document.getElementById("lName").value,
-                "contact": parseInt(document.getElementById("contact").value),
+                "contact": parseInt(contact_id),
                 "password": document.getElementById("passw").value,
                 "isDeleted": false
             });
-            alert(data);
             var xhr = new XMLHttpRequest();
             xhr.withCredentials = true;
 

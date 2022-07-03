@@ -163,7 +163,7 @@ namespace Deloitte_Project.Controllers
             {
                 dbUser.lastName = user.lastName;
             }
-            if (user.contact != null)
+            if (user.contact != 0)
             {
                 dbUser.contact = user.contact;
             }
