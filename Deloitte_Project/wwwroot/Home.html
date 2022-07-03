@@ -19,7 +19,7 @@
     <link href="upload.css" rel="stylesheet">
 </head>
 
-<body>
+<body onload="showFiles()">
 
     <header>
         <!-- Fixed navbar -->
@@ -60,35 +60,37 @@
     <div class="col-4">
       <p class="text-white bg-dark">List of Processed Files</p>
       <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action active" id = "selected" aria-current="true">
+        <!--<a href="#" class="list-group-item list-group-item-action active" id = "selected" aria-current="true">
           The current link item
-        </a>
-        <button class="list-group-item list-group-item-action" id = "not_selected" type = "button" onclick ="showDetails()">A second link item</button>
-        <button class="list-group-item list-group-item-action" id = "not_selected" type = "button" onclick ="showDetails()">A second link item</button>
-        <button class="list-group-item list-group-item-action" id = "not_selected" type = "button" onclick ="showDetails()">A second link item</button>
-        <button class="list-group-item list-group-item-action" id = "not_selected" type = "button" onclick ="showDetails()">A second link item</button>
-        
+        </a>-->
+          <p id="add_after_me"></p>
+        <!--<button class="list-group-item list-group-item-action" id = "add_after_me" type = "button" onclick ="showDetails()">A second link item</button>-->
       </div>
     </div>
     <div class="col-8">
       <p class="text-white bg-dark">Document Metadata</p>
       <div class="row mt-3">
-        <div class="col-4">
-          <label type="button" id = "file_name" class="btn btn-secondary">File Name</label>
+          <div class="col-4">
+              
+              <label type="button" id="file_name" class="btn btn-secondary">File Name</label>
+             
+          </div>
+          <div class="col-8">
+          <div class=" d-inline-flex" id="file_name.txt">some answer </div>
+          <img src="images\16x16.png" alt="Download" class="img-thumbnail">
         </div>
-        <div class="col-8" id = "file_name.txt">some answer</div>
       </div>
       <div class="row mt-3">
         <div class="col-4">
           <label type="button"  id = "created_by" class="btn btn-secondary">Created By</label>
         </div>
-        <div class="col-8" id = "created_by.txt">some answer</div>
+        <div class="col-8 d-inline-flex" id = "created_by.txt">some answer</div>
       </div>
       <div class="row mt-3">
         <div class="col-4">
           <label type="button"  id = "created_on" class="btn btn-secondary">Created On</label>
         </div>
-        <div class="col-8"  id = "created_on.txt">some answer</div>
+        <div class="col-8 d-inline-flex"  id = "created_on.txt">some answer</div>
       </div>
      
     </div>
@@ -120,15 +122,56 @@
     <script src="../../dist/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>
-        function showDetails(){
-          alert("im in da function too much raining")
-           
-            document.getElementById("file_name.txt").innerHTML="hello";
-            document.getElementById("created_by.txt").innerHTML="hello";
-            document.getElementById("created_on.txt").innerHTML="hello";
-            document.getElementById("")
-        }
+        function showDetails(ele){
+            //alert("im in da function too much raining");
+            var smt = ele.id;
+          
+            var url1 = "http://localhost:5000/api/Metadata/";
+            url1+=smt;
+            
+            var settings = {
+                "url": url1,
+                "method": "GET",
+                "timeout": 0,
+            };
 
+            $.ajax(settings).done(function (response) {
+                alert(response);
+                document.getElementById("file_name.txt").innerHTML = response[2];
+                document.getElementById("created_by.txt").innerHTML = response[0];
+                document.getElementById("created_on.txt").innerHTML = response[1];
+            });
+
+
+           
+           
+
+
+           
+        }
+        function showFiles() {
+            var i = 0;
+            var settings = {
+                "url": "http://localhost:5000/api/Metadata/GetMetadata",
+                "method": "GET",
+                "timeout": 0,
+            };
+           
+
+            $.ajax(settings).done(function (response) {
+         
+                for (i = 0; i < response.length; i++) {
+                    
+                    var listitem = '<button class= "list-group-item list-group-item-action" id = "'
+                    listitem += (i + 1).toString();
+                    listitem += '" type = "button" onclick ="showDetails(this)">';    
+                    listitem += response[i];
+                    listitem += '</button>';
+                    document.getElementById("add_after_me").insertAdjacentHTML("afterend",listitem);
+                }
+            });
+            
+        }
 
     </script>
 </body>
