@@ -138,23 +138,26 @@
                 + (currentdate.getMonth() + 1) + "/"
                 + currentdate.getFullYear();
 
-            //getting user details
+            //getting session details
             var settings = {
                 "url": "http://localhost:5000/api/Session",
                 "method": "GET",
                 "timeout": 0,
+                async: false,
             };
 
             $.ajax(settings).done(function (response) {
-                console.log(response);
+                alert("success");
+                alert(JSON.stringify(response.Id));
+            }).fail(function (response) {
+                alert("fail");
             });
 
             // Metadata push
-
             var data = JSON.stringify({
                 "file_name": fileInput.files[0].name,
                 "created_on": datetime,
-                "created_by": "qwaegsf"
+                "created_by": "test"
             });
 
             var xhr = new XMLHttpRequest();
