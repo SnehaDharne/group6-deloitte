@@ -216,6 +216,23 @@
                 if (this.readyState === 4) {
                     alert(this.responseText);
                     var sess_user = this.responseText;
+
+                    alert(sess_user);
+                    var del_xhr = new XMLHttpRequest();
+                    del_xhr.withCredentials = true;
+                    var url_del = "http://localhost:5000/api/Session/";
+                    url_del += sess_user;
+                    alert(url_del);
+                    del_xhr.addEventListener("readystatechange", function () {
+                        if (this.readyState === 4) {
+                            alert("deleted!!");
+
+                        }
+                    });
+
+                    del_xhr.open("DELETE", url_del);
+
+                    del_xhr.send();
                 }
             });
 

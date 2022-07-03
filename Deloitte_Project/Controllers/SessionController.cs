@@ -86,6 +86,7 @@ namespace Deloitte_Project.Controllers
         {
             var sess = await _context.Sessions.FindAsync(Id);
             _context.Sessions.Remove(sess);
+            await _context.SaveChangesAsync();
             return Ok(_context.Sessions);
         }
     }
