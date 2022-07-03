@@ -61,10 +61,6 @@
     <input type="text" class="form-control" id="lName" placeholder="doe">
   </div>
   <div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="email" placeholder="johndoe@gmail.com">
-  </div>
-  <div class="mb-3">
     <label for="exampleFormControlInput1" class="form-label">Change Password</label>
     <input type="password" class="form-control" id="passw" placeholder="password">
   </div>
@@ -108,9 +104,22 @@
         });
 
         function Update() {
-            
+            var userid;
+            //getting session details
+            var settings = {
+                "url": "http://localhost:5000/api/Session/GetId",
+                "method": "GET",
+                "timeout": 0,
+                async: false,
+            };
+
+            $.ajax(settings).done(function (response) {
+                userid = response;
+            }).fail(function (response) {
+                alert("fail");
+            });
             var data = JSON.stringify({
-                "id": document.getElementById("email").value,
+                "id": userid,
                 "firstName": document.getElementById("fName").value,
                 "lastName": document.getElementById("lName").value,
                 "contact": parseInt(document.getElementById("contact").value),
