@@ -65,7 +65,7 @@ namespace Deloitte_Project
             app.UseHttpsRedirection();
             var options = new DefaultFilesOptions();
             options.DefaultFileNames.Clear();
-            options.DefaultFileNames.Add("login.html");
+            options.DefaultFileNames.Add("wwwroot\\login.html");
             app.UseDefaultFiles(options);
 
             app.UseStaticFiles();

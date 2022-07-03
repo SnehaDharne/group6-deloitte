@@ -104,10 +104,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         function signIn() {
-
             var email = document.getElementById("floatingInput").value;
             var pw = document.getElementById("floatingPassword").value;
-
             var str = "http://localhost:5000/api/User/";
             str += email;
             str += '/';
@@ -118,34 +116,23 @@
                 "timeout": 0,
                 async: false,
             };
-            $.ajax(settings).done(function (response) {
-                alert(JSON.stringify(response));
-
+            $.ajax(settings).done(function (response) {       
                 var data = JSON.stringify(response);
-                alert(data);
-
                 var xhr = new XMLHttpRequest();
                 xhr.withCredentials = true;
-
-
                 xhr.addEventListener("readystatechange", function () {
                     if (this.readyState === 4) {
                         console.log(this.responseText);
-
-                        alert("DONE");
+                                     
+                        window.open("http://localhost:5000/home.html", "_self");
                     }
 
                 });
-
                 xhr.open("POST", "http://localhost:5000/api/Session");
                 xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                 xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
                 xhr.send(data);
-
-               
-
-               // window.open("http://localhost:5000/home.html", "_self");
             }).fail(function (response) {
                 alert(JSON.stringify(response));
             });

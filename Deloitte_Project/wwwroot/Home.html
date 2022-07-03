@@ -45,7 +45,7 @@
                         <a class="nav-link disabled" href="#">Disabled</a>
                     </li> -->
                 </ul>
-                <button class="ms-auto link-light sign-out-btn" onclick="signout-btn">SignOut</button>
+                <button class="ms-auto link-light sign-out-btn" onclick="signoutbtn()">SignOut</button>
             
             </div>
         </nav>
@@ -136,7 +136,7 @@
             };
 
             $.ajax(settings).done(function (response) {
-                alert(response);
+                
                 document.getElementById("file_name.txt").innerHTML = response[2];
                 document.getElementById("created_by.txt").innerHTML = response[0];
                 document.getElementById("created_on.txt").innerHTML = response[1];
