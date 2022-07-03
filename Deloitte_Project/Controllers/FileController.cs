@@ -64,7 +64,7 @@ namespace Deloitte_Project.Controllers
         }
         */
 
-
+        [EnableCors("Policy1")]
         #region Download File
         [HttpGet(nameof(Download))]
         public IActionResult Download([Required] string fileName)
@@ -78,7 +78,7 @@ namespace Deloitte_Project.Controllers
                 stream.CopyTo(memory);
             }
             memory.Position = 0;
-            return File(memory, "application/pbix", Path.GetFileName(path));
+            return File(memory, "text/plain", Path.GetFileName(path));
         }
         #endregion
     }
