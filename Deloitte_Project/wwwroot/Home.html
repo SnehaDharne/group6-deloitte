@@ -145,26 +145,56 @@
         }
         function showFiles() {
             var i = 0;
-            var settings = {
-                "url": "http://localhost:5000/api/Metadata/GetMetadata",
+
+            // Get current User Id
+            var cur_userid, total_length;
+            var settingsCurUserId = {
+                "url": "http://localhost:5000/api/Session/GetId",
                 "method": "GET",
                 "timeout": 0,
+                "async": false
             };
-           
-
-            $.ajax(settings).done(function (response) {
-         
-                for (i = 0; i < response.length; i++) {
-                    
-                    var listitem = '<button class= "list-group-item list-group-item-action" id = "'
-                    listitem += (i + 1).toString();
-                    listitem += '" type = "button" onclick ="showDetails(this)">';    
-                    listitem += response[i];
-                    listitem += '</button>';
-                    document.getElementById("add_after_me").insertAdjacentHTML("afterend",listitem);
-                }
+            $.ajax(settingsCurUserId).done(function (response) {
+                cur_userid = response;
+            }).fail(function (response) {
+                alert("fail");
             });
-            
+
+            // Get a list of names of the files uploaded by the current user
+            var listOfFileNames;
+            url_FileNames = "http://localhost:5000/api/Metadata/GetMetadataFileNames/?username=" + cur_userid;
+            var settingsFN = {
+                "url": url_FileNames,
+                "method": "GET",
+                "timeout": 0,
+                "async": false
+           };
+            $.ajax(settingsFN).done(function (response) {
+                listOfFileNames = response;
+                total_length = response.length;
+            });
+
+            // Get a list of Ids of the files uploaded by the current user
+            var listOfIds;
+            url_Ids = "http://localhost:5000/api/Metadata/GetMetadataIds/?username=" + cur_userid;
+            var settingsFN = {
+                "url": url_Ids,
+                "method": "GET",
+                "timeout": 0,
+                "async": false
+            };
+            $.ajax(settingsFN).done(function (response) {
+                listOfIds = response;
+            });
+
+            for (i = 0; i < total_length; i++) {
+                var listitem = '<button class= "list-group-item list-group-item-action" id = "'
+                listitem += listOfIds[i];
+                listitem += '" type = "button" onclick ="showDetails(this)">';
+                listitem += listOfFileNames[i];
+                listitem += '</button>';
+                document.getElementById("add_after_me").insertAdjacentHTML("afterend", listitem);
+            }
         }
 
         function Download() {

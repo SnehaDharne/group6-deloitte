@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Deloitte_Project.Migrations
 {
     [DbContext(typeof(CoreDbContext))]
-    [Migration("20220703181200_init")]
+    [Migration("20220703191248_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,9 @@ namespace Deloitte_Project.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("file_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("userid")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

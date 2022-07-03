@@ -14,7 +14,8 @@ namespace Deloitte_Project.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     file_name = table.Column<string>(nullable: true),
                     created_on = table.Column<string>(nullable: true),
-                    created_by = table.Column<string>(nullable: true)
+                    created_by = table.Column<string>(nullable: true),
+                    userid = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

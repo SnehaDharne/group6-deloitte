@@ -34,6 +34,9 @@ namespace Deloitte_Project.Migrations
                     b.Property<string>("file_name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("userid")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Metadatas");

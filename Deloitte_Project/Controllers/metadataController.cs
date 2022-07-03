@@ -26,15 +26,29 @@ namespace Deloitte_Project.Controllers
         }
 
         // GET: api/<MetadataController>
-        [HttpGet(nameof(GetMetadata))]
+        [HttpGet(nameof(GetMetadataFileNames))]
         [EnableCors("Policy1")]
-        public async Task<ActionResult<String[]>> GetMetadata()
+        public async Task<ActionResult<String[]>> GetMetadataFileNames(string username)
         {
-            var sess = await _context.Metadatas.Where(c => c.Id > 0).ToListAsync();
+            var sess = await _context.Metadatas.Where(c => c.userid == username).ToListAsync();
             string[] result = new String[sess.Count];   
             for(int i=0; i<sess.Count; i++)
             {
                 result[i] = sess[i].file_name.ToString();
+            }
+            return result;
+        }
+
+        // GET: api/<MetadataController>
+        [HttpGet(nameof(GetMetadataIds))]
+        [EnableCors("Policy1")]
+        public async Task<ActionResult<String[]>> GetMetadataIds(string username)
+        {
+            var sess = await _context.Metadatas.Where(c => c.userid == username).ToListAsync();
+            string[] result = new String[sess.Count];
+            for (int i = 0; i < sess.Count; i++)
+            {
+                result[i] = sess[i].Id.ToString();
             }
             return result;
         }
@@ -45,7 +59,7 @@ namespace Deloitte_Project.Controllers
 
         //    return sess[0].lastName;
         //}
-    // GET api/<MetadataController>/5
+        // GET api/<MetadataController>/5
         [EnableCors("Policy1")]
         [HttpGet("{Id}")]
         public async Task<ActionResult<String[]>> GetCreatedBy(int Id)

@@ -140,7 +140,7 @@
                     + currentdate.getFullYear();
 
                 //getting session details
-                var name, firstname, lastname;
+                var name, firstname, lastname, userid;
                 var settingsFName = {
                     "url": "http://localhost:5000/api/Session/GetfirstName",
                     "method": "GET",
@@ -169,24 +169,26 @@
                 });
 
                 name = firstname + " " + lastname;
-                //var xhr = new XMLHttpRequest();
-                //xhr.withCredentials = true;
 
-                //xhr.addEventListener("readystatechange", function () {
-                //    if (this.readyState === 4) {
-                //        alert(this.responseText);
-                //    }
-                //});
+                var settingsUserId = {
+                    "url": "http://localhost:5000/api/Session/GetId",
+                    "method": "GET",
+                    "timeout": 0,
+                    "async": false
+                };
+                $.ajax(settingsUserId).done(function (response) {
+                    userid = response;
+                }).fail(function (response) {
+                    alert("fail");
+                });
 
-                //xhr.open("GET", "http://localhost:5000/api/Session/sample@gmail.com", false);
-
-                //xhr.send();
 
                 // Metadata push
                 var data = JSON.stringify({
                     "file_name": fileInput.files[0].name,
                     "created_on": datetime,
-                    "created_by": name
+                    "created_by": name,
+                    "userid": userid
                 });
 
                 var xhr = new XMLHttpRequest();
