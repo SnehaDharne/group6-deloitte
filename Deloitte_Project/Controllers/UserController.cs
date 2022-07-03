@@ -169,7 +169,7 @@ namespace Deloitte_Project.Controllers
             }
             if (user.password != "")
             {
-                dbUser.password = user.password;
+                dbUser.password = Encrypt(user.password);
             }
 
             dbUser.isDeleted = false;
