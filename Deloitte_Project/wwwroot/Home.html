@@ -174,37 +174,26 @@
         }
 
         function Download() {
-            
-            var settings = {
-                "url": "http://localhost:5000/api/File/Download?fileName=gre.pdf",
-                "method": "GET",
-                "timeout": 0,
-                "async": false,
-                "responseType": 'arraybuffer',
-
+            var requestOptions = {
+                method: 'GET',
+                redirect: 'follow',
+                async: false
             };
 
-            $.ajax(settings).done(function (response) {
-                alert("success could be");
-                var blob = new Blob([response], { type: 'application/pdf' });
-                //var link = document.createElement('a');???
-                //link.href = window.URL.createObjectURL(blob);
-                //link.download = "gre.pdf",
-                //link.click();
-
-
-                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-                    window.navigator.msSaveOrOpenBlob(blob); // for IE
-                }
-                else {
-                    var fileURL = URL.createObjectURL(blob);
-                    var newWin = window.open(fileURL);
-                    newWin.focus();
-                    newWin.reload();
-                }
-            });
+            fetch("http://localhost:5000/api/File/Download?fileName=TEMP.pbix", requestOptions)
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    // the filename you want
+                    a.download = 'TEST_OUTPUT.pbix';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                });
         }
-
     </script>
 </body>
 
