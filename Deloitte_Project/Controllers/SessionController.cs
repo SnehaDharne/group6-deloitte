@@ -35,10 +35,29 @@ namespace Deloitte_Project.Controllers
             return await _context.Sessions.Where(c => c.isDeleted == false).ToListAsync();
         }
         // GET api/<SessionController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet(nameof(GetId))]
+        public async Task<ActionResult<String>> GetId()
         {
-            return "value";
+            //var sess = await _context.Sessions.FindAsync(Id);
+            var sess = await _context.Sessions.Where(c => c.isDeleted == false).ToListAsync();
+
+            return sess[0].Id;
+        }
+        [HttpGet(nameof(GetfirstName))]
+        public async Task<ActionResult<String>> GetfirstName()
+        {
+            //var sess = await _context.Sessions.FindAsync(Id);
+            var sess = await _context.Sessions.Where(c => c.isDeleted == false).ToListAsync();
+
+            return sess[0].firstName;
+        }
+        [HttpGet(nameof(GetlastName))]
+        public async Task<ActionResult<String>> GetlastName()
+        {
+            //var sess = await _context.Sessions.FindAsync(Id);
+            var sess = await _context.Sessions.Where(c => c.isDeleted == false).ToListAsync();
+
+            return sess[0].lastName;
         }
 
         // POST api/<SessionController>

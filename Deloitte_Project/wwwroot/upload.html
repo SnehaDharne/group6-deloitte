@@ -138,26 +138,38 @@
                 + (currentdate.getMonth() + 1) + "/"
                 + currentdate.getFullYear();
 
+            var userid;
             //getting session details
             var settings = {
-                "url": "http://localhost:5000/api/Session",
+                "url": "http://localhost:5000/api/Session/GetId",
                 "method": "GET",
                 "timeout": 0,
                 async: false,
             };
 
             $.ajax(settings).done(function (response) {
-                alert("success");
-                alert(JSON.stringify(response.Id));
+                userid = response;
             }).fail(function (response) {
                 alert("fail");
             });
+            //var xhr = new XMLHttpRequest();
+            //xhr.withCredentials = true;
+
+            //xhr.addEventListener("readystatechange", function () {
+            //    if (this.readyState === 4) {
+            //        alert(this.responseText);
+            //    }
+            //});
+
+            //xhr.open("GET", "http://localhost:5000/api/Session/sample@gmail.com", false);
+
+            //xhr.send();
 
             // Metadata push
             var data = JSON.stringify({
                 "file_name": fileInput.files[0].name,
                 "created_on": datetime,
-                "created_by": "test"
+                "created_by": userid
             });
 
             var xhr = new XMLHttpRequest();
