@@ -17,21 +17,23 @@
     text-align: left;
     padding-left: 20px;
     
+    
 }
 .footer-container2{
      text-align: left;
+
      padding-left: 20px;
-     height: 200px;
+     height: 150px;
      position: relative;
      vertical-align: bottom;
 }
 .welcome{
-    margin-top: 150px;
+    margin-top: 70px;
     background-color: #e9edee;
     align-self: center;
     width: 80%;
     height: 300px;
-    text-align: bottom;
+    
     
 }
 .spacer{
@@ -62,6 +64,9 @@
 .copyright{
     color:white;
     text-align: left;
-    position:absolute;
-    bottom: 0;
+    
+}
+.footer_links {
+    color: white;
+    text-align: left;
 }
