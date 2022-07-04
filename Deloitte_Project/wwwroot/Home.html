@@ -122,32 +122,14 @@
     <script src="../../dist/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>
-        function showDetails(ele){
-            //alert("im in da function too much raining");
-            var smt = ele.id;
-          
-            var url1 = "http://localhost:5000/api/Metadata/";
-            url1+=smt;
-            
-            var settings = {
-                "url": url1,
-                "method": "GET",
-                "timeout": 0,
-            };
-
-            $.ajax(settings).done(function (response) {
-                
-                document.getElementById("file_nametxt").innerHTML = response[2];
-                document.getElementById("created_bytxt").innerHTML = response[0];
-                document.getElementById("created_ontxt").innerHTML = response[1];
-            });
-
-        }
+        var total_length;
+        var cur_userid;
+        //an onload function
         function showFiles() {
             var i = 0;
 
             // Get current User Id
-            var cur_userid, total_length;
+           
             var settingsCurUserId = {
                 "url": "http://localhost:5000/api/Session/GetId",
                 "method": "GET",
@@ -230,7 +212,66 @@
                 document.getElementById("add_after_me").insertAdjacentHTML("afterend", listitem);
             }
         }
+        //a clickable function
+        function showDetails(ele) {
+            var smt = ele.id;
+           
+            //change color of all buttons to white
+           
+            //for (i = 1; i <= total_length; i++) {
+            //    var btn_id = i.toString();
+            //    document.getElementById(btn_id).style.backgroundColor = 'red';
+            //}
+         
+            //redundunt-region
 
+            // Get a list of Ids of the files uploaded by the current user
+            var listOfIds;
+            
+            url_Ids = "http://localhost:5000/api/Metadata/GetMetadataIds/?username=" + cur_userid;
+            var settingsFN = {
+                "url": url_Ids,
+                "method": "GET",
+                "timeout": 0,
+                "async": false
+            };
+            $.ajax(settingsFN).done(function (response) {
+                listOfIds = response;
+            });
+            
+          
+            for (i = 0; i < total_length; i++) {
+                cur_id = listOfIds[i].toString();
+                document.getElementById(cur_id).style.backgroundColor = 'white';
+                document.getElementById(cur_id).style.color = 'black';
+            }
+          
+            //stops here
+            // change color of this button to blue
+            document.getElementById(smt).style.backgroundColor = '#0184fc';
+            document.getElementById(smt).style.color = 'white';
+
+            //showing details
+
+
+            var url1 = "http://localhost:5000/api/Metadata/";
+            url1 += smt;
+
+            var settings = {
+                "url": url1,
+                "method": "GET",
+                "timeout": 0,
+            };
+
+            $.ajax(settings).done(function (response) {
+
+                document.getElementById("file_nametxt").innerHTML = response[2];
+                document.getElementById("created_bytxt").innerHTML = response[0];
+                document.getElementById("created_ontxt").innerHTML = response[1];
+            });
+
+        }
+        //a clickable function
         function Download() {
             var fn = document.getElementById("file_nametxt").innerHTML.toString();
             var url_downl = "http://localhost:5000/api/File/Download?fileName=";
