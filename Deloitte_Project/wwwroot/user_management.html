@@ -100,7 +100,6 @@
         $("#files").change(function() {
         filename = this.files[0].name;
          document.getElementById("showName")=filename;
-         alert(filename);
         });
 
         function Update() {
@@ -168,11 +167,9 @@
                         alert("fail");
                     });
                     name = firstname + " " + lastname;
-                    alert(name);
 
                     //Updating all metadata names
                     md_url = "http://localhost:5000/api/Metadata/" + userid + "?fullname=" + name ;
-                    alert(md_url);
                     var settings = {
                         "url": md_url,
                         "method": "PUT",
