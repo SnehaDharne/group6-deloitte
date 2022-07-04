@@ -156,7 +156,6 @@ namespace Deloitte_Project.Controllers
             }
             else
             {
-                Console.WriteLine("Invalid Email Format");
                 return BadRequest();
             }
         }

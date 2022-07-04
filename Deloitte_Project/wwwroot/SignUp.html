@@ -80,17 +80,17 @@
     <link href="signin.css" rel="stylesheet">
 </head>
 <body class="text-center">
-    <div class ="container" style="margin: 100px">
+    <div class="container" style="margin: 100px">
         <main class="form-signin m-auto" style="width: 500px">
             <form>
-                
+
                 <h1 class="h3 mb-3 fw-normal">Register Here</h1>
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="floatingInputfName" placeholder="John">
                     <label for="floatingInput">First Name</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInputlName" placeholder="name@example.com">
+                    <input type="text" class="form-control" id="floatingInputlName" placeholder="name@example.com" required>
                     <label for="floatingInput">Last Name</label>
                 </div>
 
@@ -107,10 +107,12 @@
                     <label for="floatingPassword">Password</label>
                 </div>
 
-                
+
                 <span class="w-100 btn btn-lg btn-primary mb-3" onclick="Create()">Create Account</span>
-             
+
             </form>
+            <div class="text-center" id="for_alert">
+            </div>
         </main>
 
     </div>
@@ -129,13 +131,6 @@
            "contact": parseInt(document.getElementById("floatingInputContact").value),
            "password": document.getElementById("floatingPassword").value,
             "isDeleted": false
-
-            //"id":"sdgszdb",
-            //"firstName": "shfbjgjbkjz",
-            //"lastName": "test",
-            //"contact": 34,
-            //"password": "zshfjzv",
-            //"isDeleted": false
         });
      
 
@@ -145,7 +140,11 @@
 
         xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
-                window.open("http://localhost:5000/login.html", "_self");
+                if (xhr.status == "200") {
+                    window.open("http://localhost:5000/login.html", "_self");
+                } else if (xhr.status == "500") {
+                    alertmessage("A user with this email already exists.", 'warning');
+                }
             }
         });
 
@@ -156,4 +155,18 @@
         xhr.send(data);
        
     }
+
+    function alertmessage(message, type) {
+
+        $("#for_alert").fadeIn();
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = [
+            `<div class="alert alert-${type} alert-dismissible text-center mx-auto mt-3 "style="width:fit-content; height:fit-content;" role="alert">`,
+            `   <div class="mx-auto text-center">${message}</div>`,
+
+            '</div>'
+        ].join('');
+        document.getElementById("for_alert").innerHTML = wrapper.innerHTML;
+        $("#for_alert").delay(2000).fadeOut();
+    }       
 </script>
