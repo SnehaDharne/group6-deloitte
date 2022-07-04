@@ -213,6 +213,7 @@
 
     function alertmessage(message, type) {
 
+        $("#for_alert").fadeIn();
         const wrapper = document.createElement('div');
         wrapper.innerHTML = [
             `<div class="alert alert-${type} alert-dismissible text-center mx-auto mt-3 "style="width:fit-content; height:fit-content;" role="alert">`,
@@ -221,6 +222,7 @@
             '</div>'
         ].join('');
         document.getElementById("for_alert").innerHTML = wrapper.innerHTML;
+        $("#for_alert").delay(2000).fadeOut();
     }
 
 </script>
