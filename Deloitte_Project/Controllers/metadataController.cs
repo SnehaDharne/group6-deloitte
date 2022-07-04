@@ -131,9 +131,17 @@ namespace Deloitte_Project.Controllers
         }
 
         // PUT api/<MetadataController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{username}")]
+        public async Task<IActionResult> PutUser(string username, string fullname)
         {
+            var sess = await _context.Metadatas.Where(c => c.userid == username).ToListAsync();
+            for (int i = 0; i < sess.Count; i++)
+            {
+                sess[i].created_by = fullname;
+            }
+
+            await _context.SaveChangesAsync();
+            return Ok();
         }
 
         // DELETE api/<MetadataController>/5

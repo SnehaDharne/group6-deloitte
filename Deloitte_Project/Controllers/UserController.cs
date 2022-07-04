@@ -15,6 +15,7 @@ using System.Net.Mail;
 
 namespace Deloitte_Project.Controllers
 {
+    [EnableCors("Policy1")]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -103,7 +104,7 @@ namespace Deloitte_Project.Controllers
         // }
 
         // GET api/<UserController>/5
-        [EnableCors("Policy1")]
+
         [HttpGet("{Id}/{password}")]
         public async Task<ActionResult<User>> GetDetails(string Id, string password)
         {
@@ -123,6 +124,21 @@ namespace Deloitte_Project.Controllers
                 else
                     return BadRequest();
             }
+        }
+
+        [HttpGet(nameof(GetfirstName))]
+        public async Task<ActionResult<String>> GetfirstName(string username)
+        {
+            var user = await _context.Users.Where(c => c.Id == username).ToListAsync();
+
+            return user[0].firstName;
+        }
+        [HttpGet(nameof(GetlastName))]
+        public async Task<ActionResult<String>> GetlastName(string username)
+        {
+            var user = await _context.Users.Where(c => c.Id == username).ToListAsync();
+
+            return user[0].lastName;
         }
 
         // POST api/<UserController>

@@ -137,7 +137,54 @@
             xhr.addEventListener("readystatechange", function () {
                 if (this.readyState === 4) {
                     console.log(this.responseText);
-                    signoutbtn();
+                    var firstname, lastname, name;
+
+                    //getting name from User table to update metadata table information
+                    urlFName = "http://localhost:5000/api/User/GetfirstName" + "?username=" + userid;
+                    var settingsFName = {
+                        "url": urlFName,
+                        "method": "GET",
+                        "timeout": 0,
+                        async: false,
+                    };
+
+                    $.ajax(settingsFName).done(function (response) {
+                        firstname = response;
+                    }).fail(function (response) {
+                        alert("fail");
+                    });
+
+                    urlLName = "http://localhost:5000/api/User/GetlastName" + "?username=" + userid
+                    var settingsLName = {
+                        "url": urlLName,
+                        "method": "GET",
+                        "timeout": 0,
+                        async: false,
+                    };
+
+                    $.ajax(settingsLName).done(function (response) {
+                        lastname = response;
+                    }).fail(function (response) {
+                        alert("fail");
+                    });
+                    name = firstname + " " + lastname;
+                    alert(name);
+
+                    //Updating all metadata names
+                    md_url = "http://localhost:5000/api/Metadata/" + userid + "?fullname=" + name ;
+                    alert(md_url);
+                    var settings = {
+                        "url": md_url,
+                        "method": "PUT",
+                        "timeout": 0,
+                        async: false,
+                    };
+
+                    $.ajax(settings).done(function (response) {
+                        signoutbtn();
+                    }).fail(function (response) {
+                        alert("fail");
+                    });
                 }
             });
 
