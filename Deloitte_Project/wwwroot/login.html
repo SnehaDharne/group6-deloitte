@@ -94,6 +94,8 @@
                 <button onclick="signIn()" class="w-100 btn btn-lg btn-primary mb-3" type="button">Log In</button>
                 <a href="SignUp.html" class="w-100 btn btn-lg btn-primary" type="submit">Sign Up</a>
             </form>
+            <div class="text-center" id="for_alert">
+            </div>
         </main>
 
     </div>
@@ -130,11 +132,32 @@
                 xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
                 xhr.send(data);
             }).fail(function (response) {
-                alert(JSON.stringify(response));
-            });
+                // 404 - Not Found - User doesn't exist
+                // 400 - Bad Request - Wrong Password
+                if (response.status == "404") {
+                    alertmessage("Account doesn't exist in the database. Please check details.", 'warning');
+                }
+                else if (response.status == "400") {
+                    alertmessage("Incorrect password entered.", 'danger');
+                } else {
+                    alertmessage("Something went wrong.", 'warning');
+                }
+            }); 
         }
 
-       
+        function alertmessage(message, type) {
+
+            $("#for_alert").fadeIn();
+            const wrapper = document.createElement('div');
+            wrapper.innerHTML = [
+                `<div class="alert alert-${type} alert-dismissible text-center mx-auto mt-3 "style="width:fit-content; height:fit-content;" role="alert">`,
+                `   <div class="mx-auto text-center">${message}</div>`,
+
+                '</div>'
+            ].join('');
+            document.getElementById("for_alert").innerHTML = wrapper.innerHTML;
+            $("#for_alert").delay(2000).fadeOut();
+        }
     </script>
 </body>
 
