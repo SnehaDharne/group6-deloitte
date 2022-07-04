@@ -35,8 +35,12 @@ namespace Deloitte_Project.Controllers
         {
             //var sess = await _context.Sessions.FindAsync(Id);
             var sess = await _context.Sessions.Where(c => c.isDeleted == false).ToListAsync();
-
-            return sess[0].Id;
+            if(sess.Count == 0) {
+                return NotFound();
+            } else {
+                return sess[0].Id;
+            }
+            
         }
         [HttpGet(nameof(GetfirstName))]
         public async Task<ActionResult<String>> GetfirstName()

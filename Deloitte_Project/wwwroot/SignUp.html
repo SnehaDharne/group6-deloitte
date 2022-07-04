@@ -5,7 +5,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Signin Template · Bootstrap v5.2</title>
+    <title>Sign Up</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -17,6 +17,8 @@
 
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
+
+    <script src="main.js"></script>
 </head>
 
 <body class="text-center">
@@ -47,77 +49,10 @@
                 </div>
                 <span class="w-100 btn btn-lg btn-primary mb-3" onclick="Create()">Create Account</span>
             </form>
-            <div class="text-center" id="for_alert">
+            <div class="text-center" id="alert_signup">
             </div>
         </main>
     </div>
 </body>
 
 </html>
-<script>
-    function Create() {
-        var id, firstName, lastName, contact, password;
-        id = document.getElementById("floatingInputEmail").value;
-        firstName = document.getElementById("floatingInputfName").value;
-        lastName = document.getElementById("floatingInputlName").value;
-        contact = document.getElementById("floatingInputContact").value;
-        password = document.getElementById("floatingPassword").value;
-
-        // User leaves field empty
-        if (!id || !firstName || !lastName || !contact || !password) {
-            alertmessage("Please enter all details.", 'warning');
-        } else if (isNaN(parseInt(contact))) {
-            // User enters text for contact
-            alertmessage("Contact must be a number.", 'warning');
-        } else if (contact.length != 10) {
-            // User inputs a non 10 digit number
-            alertmessage("Contact must be 10 digits long.", 'warning');
-        } else {
-            // WARNING: For POST requests, body is set to null by browsers.
-            var data = JSON.stringify({
-                "id": id,
-                "firstName": firstName,
-                "lastName": lastName,
-                "contact": parseInt(contact),
-                "password": password,
-                "isDeleted": false
-            });
-
-            var xhr = new XMLHttpRequest();
-            xhr.withCredentials = true;
-
-            xhr.addEventListener("readystatechange", function () {
-                if (this.readyState === 4) {
-                    if (xhr.status == "200") {
-                        window.open("http://localhost:5000/login.html", "_self");
-                    } else if (xhr.status == "500") { // Primary Key cannot duplicate
-                        alertmessage("A user with this email already exists.", 'warning');
-                    } else if (xhr.status == "400") {
-                        alertmessage("Invalid email format.", 'warning');
-                    } else {
-                        alertmessage("Something went wrong.", 'warning');
-                    }
-                }
-            });
-
-            xhr.open("POST", "http://localhost:5000/api/user", false);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-            xhr.send(data);
-        }
-
-    }
-
-    function alertmessage(message, type) {
-        $("#for_alert").fadeIn();
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = [
-            `<div class="alert alert-${type} alert-dismissible text-center mx-auto mt-3 "style="width:fit-content; height:fit-content;" role="alert">`,
-            `   <div class="mx-auto text-center">${message}</div>`,
-            '</div>'
-        ].join('');
-        document.getElementById("for_alert").innerHTML = wrapper.innerHTML;
-        $("#for_alert").delay(2000).fadeOut();
-    }
-</script>
