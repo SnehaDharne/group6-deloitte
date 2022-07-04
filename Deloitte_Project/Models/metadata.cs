@@ -9,8 +9,3 @@
         public string userid { get; set; }
     }
 }
-//{
-//    "file_name": "sample",
-//    "created_on": "egsv",
-//    "created_by": "qwaegsf"
-//}
