@@ -3,14 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Deloitte_Project.Models;
-using System.Text;
-using System.Security.Cryptography;
-using System.IO;
 using Microsoft.AspNetCore.Cors;
-using System.Net.Mail;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Deloitte_Project.Controllers
@@ -64,13 +59,10 @@ namespace Deloitte_Project.Controllers
         [HttpPost]
         public async Task<ActionResult<Session>> PostSession(Session sess)
         {
-           
-               
                 _context.Sessions.Add(sess);
                 await _context.SaveChangesAsync();
 
                 return Ok(_context.Sessions);
-          
         }
 
         // PUT api/<SessionController>/5
@@ -82,11 +74,11 @@ namespace Deloitte_Project.Controllers
         // DELETE api/<SessionController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSession(string Id)
-
         {
             var sess = await _context.Sessions.FindAsync(Id);
             _context.Sessions.Remove(sess);
             await _context.SaveChangesAsync();
+
             return Ok(_context.Sessions);
         }
     }

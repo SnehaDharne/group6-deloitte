@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Deloitte_Project.Models;
 using System.Text;
@@ -27,8 +26,8 @@ namespace Deloitte_Project.Controllers
             using (Aes encryptor = Aes.Create())
             {
                 Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
-            0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
-        });
+                    0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
+                });
                 encryptor.Key = pdb.GetBytes(32);
                 encryptor.IV = pdb.GetBytes(16);
                 using (MemoryStream ms = new MemoryStream())
@@ -52,8 +51,8 @@ namespace Deloitte_Project.Controllers
             using (Aes encryptor = Aes.Create())
             {
                 Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] {
-            0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
-        });
+                    0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76
+                });
                 encryptor.Key = pdb.GetBytes(32);
                 encryptor.IV = pdb.GetBytes(16);
                 using (MemoryStream ms = new MemoryStream())
@@ -71,14 +70,10 @@ namespace Deloitte_Project.Controllers
 
         public bool IsValidEmail(string emailaddress)
         {
-            try
-            {
+            try {
                 MailAddress m = new MailAddress(emailaddress);
-
                 return true;
-            }
-            catch (FormatException)
-            {
+            } catch (FormatException) {
                 return false;
             }
         }
@@ -93,18 +88,11 @@ namespace Deloitte_Project.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            // return await _context.Contacts.ToListAsync();
             // Hide entries with IsDeleted = true
             return await _context.Users.Where(c => c.isDeleted == false).ToListAsync();
         }
 
-        // public IEnumerable<string> Get()
-        // {
-        //     return new string[] { "value1", "value2" };
-        // }
-
         // GET api/<UserController>/5
-
         [HttpGet("{Id}/{password}")]
         public async Task<ActionResult<User>> GetDetails(string Id, string password)
         {
@@ -113,16 +101,13 @@ namespace Deloitte_Project.Controllers
             if (user == null)
             {
                 return NotFound();
-            }
-            else
-            {
+            } else {
                 if (Decrypt(user.password) == password)
                 {
                     return user;
-
-                }
-                else
+                } else {
                     return BadRequest();
+                }
             }
         }
 
@@ -153,9 +138,7 @@ namespace Deloitte_Project.Controllers
                 await _context.SaveChangesAsync();
 
                 return Ok(_context.Users);
-            }
-            else
-            {
+            } else {
                 return BadRequest();
             }
         }

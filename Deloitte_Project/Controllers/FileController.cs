@@ -1,18 +1,16 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
-using System.Web;
-using System.Threading.Tasks;
 using Deloitte_Project.Services;
 using Microsoft.AspNetCore.Cors;
 
 namespace Deloitte_Project.Controllers
 {
+    [EnableCors("Policy1")]
     [Route("api/[controller]")]
     [ApiController]
     public class FileController : ControllerBase
@@ -27,7 +25,6 @@ namespace Deloitte_Project.Controllers
             _fileService = fileService;
         }
         #endregion
-        [EnableCors("Policy1")]
         #region Upload
         [HttpPost(nameof(Upload))]
         
@@ -47,24 +44,7 @@ namespace Deloitte_Project.Controllers
             }
         }
         #endregion
-        /*public JsonResult Upload()
-        {
-            for (int i = 0; i < Request.Files.Count; i++)
-            {
-                HttpPostedFileBase file = Request.Files[i]; //Uploaded file
-                                                            //Use the following properties to get file's name, size and MIMEType
-                int fileSize = file.ContentLength;
-                string fileName = file.FileName;
-                string mimeType = file.ContentType;
-                System.IO.Stream fileContent = file.InputStream;
-                //To save file, use SaveAs method
-                file.SaveAs(Server.MapPath("~/") + fileName); //File will be saved in application root
-            }
-            return Json("Uploaded " + Request.Files.Count + " files");
-        }
-        */
 
-        [EnableCors("Policy1")]
         #region Download File
         [HttpGet(nameof(Download))]
         public IActionResult Download([Required] string fileName)
