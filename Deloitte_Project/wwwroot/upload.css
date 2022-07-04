@@ -5,8 +5,11 @@
 .nav-item{
     margin-inline-start: 20px;
 }
-.sign-out-btn{
+.sign-out{
     margin-inline-end: 20px;
+    color:white;
+    background-color:darkmagenta;
+    
 }
 .footer-container1{
     background-color: darkgray; 
