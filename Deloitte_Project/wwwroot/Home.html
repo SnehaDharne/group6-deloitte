@@ -54,7 +54,7 @@
    
 <main>
   <div class ="rounded"style="margin-top:100px; border: radius 5px;">
-  <div class="p-3 mb-2 bg-secondary text-white">Welcome_deloitteUser</div>
+  <div class="p-3 mb-2 bg-secondary text-white" id="welcome_user" >Welcome_deloitteUser</div>
   </div>
   <div class="row ms-2 mt-5">
     <div class="col-4">
@@ -159,6 +159,40 @@
             }).fail(function (response) {
                 alert("fail");
             });
+            //Get current user name
+            //getting session details
+            var name, firstname, lastname;
+            var settingsFName = {
+                "url": "http://localhost:5000/api/Session/GetfirstName",
+                "method": "GET",
+                "timeout": 0,
+                "async": false
+            };
+
+            $.ajax(settingsFName).done(function (response) {
+                firstname = response;
+            }).fail(function (response) {
+                alert("fail");
+            });
+
+
+            var settingsLName = {
+                "url": "http://localhost:5000/api/Session/GetlastName",
+                "method": "GET",
+                "timeout": 0,
+                "async": false
+            };
+
+            $.ajax(settingsLName).done(function (response) {
+                lastname = response;
+            }).fail(function (response) {
+                alert("fail");
+            });
+
+            name ="Welcome " + firstname + " " + lastname;
+            
+            document.getElementById("welcome_user").innerHTML = name;
+
 
             // Get a list of names of the files uploaded by the current user
             var listOfFileNames;
