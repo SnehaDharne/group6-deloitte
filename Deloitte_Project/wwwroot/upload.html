@@ -112,7 +112,6 @@
 </body>
 <script>
     function uploadfile() {
-        alert("in js");
         var form = new FormData();
         const fileInput = document.getElementById('fileUpload');
         if (fileInput.files[0].name.endsWith(".pbix")) {
@@ -198,10 +197,8 @@
             upload_xhr.addEventListener("readystatechange", function () {
                 if (this.readyState === 4) {
                     console.log(this.responseText);
-                    alertmessage("Uploaded Sucessfully! Reload to upload another");
-                    await sleep(30000);
-                    window.open("http://localhost:5000/upload.html", "_self");
-
+                    alertmessage("Uploaded Sucessfully!", 'success');
+                    document.getElementById("fileUpload").value = null;
                 }
             });
 
@@ -210,6 +207,7 @@
         } else {
           
             alertmessage("Upload failure! Only pbix file type is supported.", 'danger');
+            document.getElementById("fileUpload").value = null;
         }
     }
 
@@ -223,9 +221,6 @@
             '</div>'
         ].join('');
         document.getElementById("for_alert").innerHTML = wrapper.innerHTML;
-
-
-
     }
 
 </script>
