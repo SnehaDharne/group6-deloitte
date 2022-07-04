@@ -90,12 +90,12 @@
                     <label for="floatingInput">First Name</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingInputlName" placeholder="name@example.com" required>
+                    <input type="text" class="form-control" id="floatingInputlName" placeholder="name@example.com">
                     <label for="floatingInput">Last Name</label>
                 </div>
 
                 <div class="form-floating mb-3">
-                    <input type="number" class="form-control" id="floatingInputContact" placeholder="name@example.com">
+                    <input type="text" class="form-control" id="floatingInputContact" placeholder="name@example.com">
                     <label for="floatingInput">Contact</label>
                 </div>
                 <div class="form-floating mb-3">
@@ -122,37 +122,58 @@
 </html>
 <script>
     function Create() {
-      
-        // WARNING: For POST requests, body is set to null by browsers.
-        var data = JSON.stringify({
-            "id": document.getElementById("floatingInputEmail").value,
-            "firstName": document.getElementById("floatingInputfName").value,
-            "lastName": document.getElementById("floatingInputlName").value,
-           "contact": parseInt(document.getElementById("floatingInputContact").value),
-           "password": document.getElementById("floatingPassword").value,
-            "isDeleted": false
-        });
-     
+        var id, firstName, lastName, contact, password;
+        id = document.getElementById("floatingInputEmail").value;
+        firstName = document.getElementById("floatingInputfName").value;
+        lastName = document.getElementById("floatingInputlName").value;
+        contact = document.getElementById("floatingInputContact").value;
+        password = document.getElementById("floatingPassword").value;
 
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-       
+        // User leaves field empty
+        if (!id || !firstName || !lastName || !contact || !password) {
+            alertmessage("Please enter all details.", 'warning');
+        } else if (isNaN(parseInt(contact))) {
+            // User enters text for contact
+            alertmessage("Contact must be a number.", 'warning');
+        } else if (contact.length != 10) {
+            // User inputs a non 10 digit number
+            alertmessage("Contact must be 10 digits long.", 'warning');
+        } else {
+            // WARNING: For POST requests, body is set to null by browsers.
+            var data = JSON.stringify({
+                "id": id,
+                "firstName": firstName,
+                "lastName": lastName,
+                "contact": parseInt(contact),
+                "password": password,
+                "isDeleted": false
+            });
 
-        xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
-                if (xhr.status == "200") {
-                    window.open("http://localhost:5000/login.html", "_self");
-                } else if (xhr.status == "500") {
-                    alertmessage("A user with this email already exists.", 'warning');
+
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+
+
+            xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4) {
+                    if (xhr.status == "200") {
+                        window.open("http://localhost:5000/login.html", "_self");
+                    } else if (xhr.status == "500") { // Primary Key cannot duplicate
+                        alertmessage("A user with this email already exists.", 'warning');
+                    } else if (xhr.status == "400") {
+                        alertmessage("Invalid email format.", 'warning');
+                    } else {
+                        alertmessage("Something went wrong.", 'warning');
+                    }
                 }
-            }
-        });
+            });
 
-        xhr.open("POST", "http://localhost:5000/api/user", false);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-        xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-        xhr.send(data);
+            xhr.open("POST", "http://localhost:5000/api/user", false);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+            xhr.send(data);
+        }
        
     }
 
