@@ -4,13 +4,13 @@
 
     new_xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
-            
+
             var sess_user = this.responseText;
             var del_xhr = new XMLHttpRequest();
             del_xhr.withCredentials = true;
             var url_del = "http://localhost:5000/api/Session/";
             url_del += sess_user;
-          
+
             del_xhr.addEventListener("readystatechange", function () {
                 if (this.readyState === 4) {
                     window.open("http://localhost:5000/login.html", "_self");
@@ -27,11 +27,6 @@
 
     new_xhr.send();
 
-
-
-
 }
 
 //upload.html
-
-

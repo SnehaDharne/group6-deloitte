@@ -1,6 +1,6 @@
-﻿
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,10 +23,7 @@
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-
             <div class="collapse navbar-collapse" id="navbarCollapse">
-
-
                 <ul class="navbar-nav mr-auto d-flex">
                     <li class="nav-item">
                         <div class="navbar-brand">Deloitte</div>
@@ -41,16 +38,14 @@
                         <a class="nav-link" href="user_management.html">User Management</a>
                     </li>
                 </ul>
-                <button type="button" class="btn btn-dark bg-dark d-flex ms-auto link-light " style="text-decoration: none; margin-inline:20px;" onclick="signoutbtn()">Sign Out</button>
-
+                <button type="button" class="btn btn-dark bg-dark d-flex ms-auto link-light "
+                    style="text-decoration: none; margin-inline:20px;" onclick="signoutbtn()">Sign Out</button>
             </div>
         </nav>
     </header>
     <main>
         <div class="container mt-4">
-
             <div class="container welcome rounded" style="position: relative;">
-
                 <div class="spacer"> </div>
                 <div style="left:0; bottom:0; position: absolute; margin-left: 10px; " class="mb-4">
                     <div class="mt-10 display-6">
@@ -59,51 +54,39 @@
                     <div class="mb-4">
                         Traffic Predictabilty
                     </div>
-
                 </div>
             </div>
             <div class="container ms-auto text-center" style="margin-top:20px;">
-
                 <input type="file" id="fileUpload">
                 <button type="button" class="btn btn-secondary" onclick="uploadfile()">Upload</button>
-
             </div>
             <div class="text-center" id="for_alert">
-
             </div>
-
-
-
-
-
         </div>
     </main>
     <footer class="page-footer fixed-bottom bg-dark text-center font-small mt-4 wow fadeIn  ">
-
         <div class="footer-container1 mb-3">
             Footer
-
         </div>
         <div class="bg-dark footer-container2">
             <div class="footer_links mt-3">
                 <h6>
-                Footer links and menu items.
+                    Footer links and menu items.
                 </h6>
             </div>
-            <div class="copyright" >
+            <div class="copyright">
                 <small>
                     Copyright@Deloitte.com | 2022
-
                 </small>
-          
             </div>
         </div>
-
     </footer>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="../../assets/js/vendor/popper.min.js"></script>
     <script src="../../dist/js/bootstrap.min.js"></script>
@@ -135,7 +118,6 @@
                 alert("fail");
             });
 
-
             var settingsLName = {
                 "url": "http://localhost:5000/api/Session/GetlastName",
                 "method": "GET",
@@ -162,7 +144,6 @@
             }).fail(function (response) {
                 alert("fail");
             });
-
 
             // Metadata push
             var data = JSON.stringify({
@@ -205,14 +186,13 @@
             upload_xhr.open("POST", "http://localhost:5000/api/File/Upload", false);
             upload_xhr.send(upload_data);
         } else {
-          
+
             alertmessage("Upload failure! Only pbix file type is supported.", 'danger');
             document.getElementById("fileUpload").value = null;
         }
     }
 
     function alertmessage(message, type) {
-
         $("#for_alert").fadeIn();
         const wrapper = document.createElement('div');
         wrapper.innerHTML = [
@@ -226,4 +206,5 @@
     }
 
 </script>
+
 </html>
