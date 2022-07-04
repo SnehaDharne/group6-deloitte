@@ -31,7 +31,7 @@ namespace Deloitte_Project.Controllers
         public IActionResult Upload([Required] List<IFormFile> formFiles)
         {
             string subDirectory;
-            subDirectory = Directory.GetParent(Environment.CurrentDirectory).FullName + "\\OUTPUT";
+            subDirectory = Directory.GetParent(Environment.CurrentDirectory).FullName + "\\Final";
             try
             {
                 _fileService.UploadFile(formFiles, subDirectory);
@@ -50,7 +50,7 @@ namespace Deloitte_Project.Controllers
         public IActionResult Download([Required] string fileName)
         {
             string subDirectory;
-            subDirectory = Directory.GetParent(Environment.CurrentDirectory).FullName + "\\OUTPUT";
+            subDirectory = Directory.GetParent(Environment.CurrentDirectory).FullName + "\\Final";
             var path = Path.Combine(subDirectory, fileName);
             var memory = new MemoryStream();
             using (var stream = new FileStream(path, FileMode.Open))
