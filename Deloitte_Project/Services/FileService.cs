@@ -43,6 +43,7 @@ namespace Deloitte_Project.Services
         #endregion
 
         #region Download File
+        // This code is for downloading an entire directory
         public (string fileType, byte[] archiveData, string archiveName) DownloadFiles(string subDirectory)
         {
             var zipName = $"archive-{DateTime.Now.ToString("yyyy_MM_dd-HH_mm_ss")}.zip";
