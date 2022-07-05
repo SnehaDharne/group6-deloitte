@@ -473,7 +473,8 @@ function Update() {
 
 function Create() {
     var id, firstName, lastName, contact, password;
-    id = document.getElementById("floatingInputEmail").value;
+    // Email is not case sensitive, so it should always be stored in lowercase
+    id = document.getElementById("floatingInputEmail").value.toLowerCase();
     firstName = document.getElementById("floatingInputfName").value;
     lastName = document.getElementById("floatingInputlName").value;
     contact = document.getElementById("floatingInputContact").value;
@@ -529,7 +530,7 @@ function Create() {
 //login
 
 function signIn() {
-    var email = document.getElementById("floatingInput").value;
+    var email = document.getElementById("floatingInput").value.toLowerCase();
     var pw = document.getElementById("floatingPassword").value;
 
     if (!email) {
