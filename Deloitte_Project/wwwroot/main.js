@@ -348,7 +348,7 @@ function Download() {
             upload_xhr.addEventListener("readystatechange", function () {
                 if (this.readyState === 4) {
                     console.log(this.responseText);
-                    alertmessage("Uploaded Sucessfully!", 'success');
+                    alertmessage("Uploaded Sucessfully!", 'success', 'alert_upload');
                     document.getElementById("fileUpload").value = null;
                 }
             });
@@ -357,7 +357,7 @@ function Download() {
             upload_xhr.send(upload_data);
         } else {
 
-            alertmessage("Upload failure! Only pbix file type is supported.", 'danger','alert_upload');
+            alertmessage("Upload failure! Only pbix file type is supported.", 'danger', 'alert_upload');
             document.getElementById("fileUpload").value = null;
         }
     }
