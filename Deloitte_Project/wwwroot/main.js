@@ -383,21 +383,23 @@ function Update() {
         alert("fail");
     });
 
-    var contact_id = document.getElementById("contact").value;
 
-    
+    var contact_id = document.getElementById("contact").value;
+    var contact_id_is_empty;
+  
     if (!contact_id) {
         // Handle empty contact input for non update as it is not possible
         // to compare ulong type with empty string  
         contact_id = "0";
-    } 
+        contact_id_is_empty = true;
+    }
+    
 
 
     if (isNaN(parseInt(contact_id))) {
         // User enters text for contact
        alertmessage("Contact must be a number.", 'warning', 'alert_user_management');
-       // alert("recieved text");
-    } else if (contact_id.length != 10) {
+    } else if (contact_id.length != 10 && !contact_id_is_empty) {
         // User inputs a non 10 digit number
        alertmessage("Contact must be 10 digits long.", 'warning', 'alert_user_management');
        // alert("10 digs");
