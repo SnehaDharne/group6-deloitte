@@ -385,95 +385,103 @@ function Update() {
 
 
     var contact_id = document.getElementById("contact").value;
+    var firstName = document.getElementById("fName").value;
+    var lastName = document.getElementById("lName").value;
+    var password = document.getElementById("passw").value;
     var contact_id_is_empty;
-  
-    if (!contact_id) {
-        // Handle empty contact input for non update as it is not possible
-        // to compare ulong type with empty string  
-        contact_id = "0";
-        contact_id_is_empty = true;
+
+    if (!firstName && !lastName && !password && !contact_id) {
+        alertmessage('Enter at least one field to update.', 'warning', 'alert_user_management');
     }
-    
+    else {
+        if (!contact_id) {
+            // Handle empty contact input for non update as it is not possible
+            // to compare ulong type with empty string  
+            contact_id = "0";
+            contact_id_is_empty = true;
+        }
 
 
-    if (isNaN(parseInt(contact_id))) {
-        // User enters text for contact
-       alertmessage("Contact must be a number.", 'warning', 'alert_user_management');
-    } else if (contact_id.length != 10 && !contact_id_is_empty) {
-        // User inputs a non 10 digit number
-       alertmessage("Contact must be 10 digits long.", 'warning', 'alert_user_management');
-       // alert("10 digs");
-    } else {
-        var data = JSON.stringify({
-            "id": userid,
-            "firstName": document.getElementById("fName").value,
-            "lastName": document.getElementById("lName").value,
-            "contact": parseInt(contact_id),
-            "password": document.getElementById("passw").value,
-            "isDeleted": false
-        });
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
 
-        xhr.addEventListener("readystatechange", function () {
-            if (this.readyState === 4) {
-                console.log(this.responseText);
-                var firstname, lastname, name;
-                
-                //getting name from User table to update metadata table information
-                urlFName = "http://localhost:5000/api/User/GetfirstName" + "?username=" + userid;
-                var settingsFName = {
-                    "url": urlFName,
-                    "method": "GET",
-                    "timeout": 0,
-                    async: false,
-                };
-                
-                $.ajax(settingsFName).done(function (response) {
-                    firstname = response;                    
-                }).fail(function (response) {
-                    alert("fail");
-                });
+        if (isNaN(parseInt(contact_id))) {
+            // User enters text for contact
+            alertmessage("Contact must be a number.", 'warning', 'alert_user_management');
+        } else if (contact_id.length != 10 && !contact_id_is_empty) {
+            // User inputs a non 10 digit number
+            alertmessage("Contact must be 10 digits long.", 'warning', 'alert_user_management');
+            // alert("10 digs");
+        } else {
+            var data = JSON.stringify({
+                "id": userid,
+                "firstName": firstName,
+                "lastName": lastName,
+                "contact": parseInt(contact_id),
+                "password": password,
+                "isDeleted": false
+            });
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
 
-                urlLName = "http://localhost:5000/api/User/GetlastName" + "?username=" + userid
-                var settingsLName = {
-                    "url": urlLName,
-                    "method": "GET",
-                    "timeout": 0,
-                    async: false,
-                };
-            
-                $.ajax(settingsLName).done(function (response) {
-                    lastname = response;                   
-                }).fail(function (response) {
-                    alert("fail");
-                });
+            xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === 4) {
+                    console.log(this.responseText);
+                    var firstname, lastname, name;
 
-                name = firstname + " " + lastname;
-           
-                //Updating all metadata names
-                md_url = "http://localhost:5000/api/Metadata/" + userid + "?fullname=" + name;
-                var settings = {
-                    "url": md_url,
-                    "method": "PUT",
-                    "timeout": 0,
-                    async: false,
-                };
+                    //getting name from User table to update metadata table information
+                    urlFName = "http://localhost:5000/api/User/GetfirstName" + "?username=" + userid;
+                    var settingsFName = {
+                        "url": urlFName,
+                        "method": "GET",
+                        "timeout": 0,
+                        async: false,
+                    };
 
-                $.ajax(settings).done(function (response) {
-                    signoutbtn();
-                }).fail(function (response) {
-                    alert("fail");
-                });
+                    $.ajax(settingsFName).done(function (response) {
+                        firstname = response;
+                    }).fail(function (response) {
+                        alert("fail");
+                    });
 
-            }
-        });
-        
-        xhr.open("PUT", "http://localhost:5000/api/User");
-        xhr.setRequestHeader("Content-Type", "application/json");
+                    urlLName = "http://localhost:5000/api/User/GetlastName" + "?username=" + userid
+                    var settingsLName = {
+                        "url": urlLName,
+                        "method": "GET",
+                        "timeout": 0,
+                        async: false,
+                    };
 
-        xhr.send(data);
+                    $.ajax(settingsLName).done(function (response) {
+                        lastname = response;
+                    }).fail(function (response) {
+                        alert("fail");
+                    });
 
+                    name = firstname + " " + lastname;
+
+                    //Updating all metadata names
+                    md_url = "http://localhost:5000/api/Metadata/" + userid + "?fullname=" + name;
+                    var settings = {
+                        "url": md_url,
+                        "method": "PUT",
+                        "timeout": 0,
+                        async: false,
+                    };
+
+                    $.ajax(settings).done(function (response) {
+                        signoutbtn();
+                    }).fail(function (response) {
+                        alert("fail");
+                    });
+
+                }
+            });
+
+            xhr.open("PUT", "http://localhost:5000/api/User");
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.send(data);
+
+        }
     }
 }
 
